@@ -1,0 +1,117 @@
+/* General Form Styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #003366; /* Deep Blue */
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Login Button Styling */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* Login Button Box */
+.login-buttons {
+    display: flex;
+    gap: 20px; /* Space between buttons */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Individual Login Buttons */
+.login-btn {
+    background-color: #FFD700; /* Bright Yellow */
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid #333;
+    cursor: pointer;
+    border-radius: 8px;
+    text-decoration: none;
+    color: black;
+    transition: 0.3s ease-in-out;
+}
+
+.login-btn:hover {
+    background-color: #FFA500; /* Orange Hover Effect */
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Remove White Box */
+.login-container {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+/* Login Form Container */
+.login-form-container {
+    width: 340px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    margin: 40px auto;
+    color: black;
+}
+
+/* Form Title */
+.login-form-container h2 {
+    margin-bottom: 20px;
+    color: #003366;
+    font-size: 22px;
+}
+
+/* Input Fields */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #003366;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #FFD700;
+    color: black;
+}
+
+/* Login Message */
+#loginMessage {
+    color: red;
+    display: none;
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+    .login-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .login-form-container {
+        width: 90%;
+    }
+}

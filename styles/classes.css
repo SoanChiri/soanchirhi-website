@@ -1,0 +1,105 @@
+/* Classes Section */
+#classes {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 40px 35px;
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    border-left: 6px solid #004aad;
+    border-right: 6px solid #004aad;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #00274d;
+    margin-bottom: 20px;
+}
+
+/* Classes Content */
+.classes-content {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+    text-align: justify;
+    padding: 15px;
+}
+
+/* Sub Headings */
+.sub-heading {
+    font-size: 20px;
+    font-weight: bold;
+    color: #004aad;
+    margin-top: 25px;
+    text-align: left;
+}
+
+/* Class Schedule */
+.class-schedule ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.class-schedule li {
+    font-size: 18px;
+    background: #f7f7f7;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.class-schedule li:hover {
+    transform: scale(1.02);
+    background: #eaf2ff;
+}
+
+/* Location Map */
+.map-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.map-img {
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.map-img:hover {
+    transform: scale(1.05);
+}
+
+/* Map Caption */
+.map-caption {
+    font-size: 16px;
+    font-style: italic;
+    color: #444;
+    margin-top: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .classes-content {
+        text-align: center;
+    }
+
+    .class-schedule li {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .map-img {
+        width: 100%;
+    }
+}

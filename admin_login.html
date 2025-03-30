@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login - Soan Chirhi School</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles/forms.css"> <!-- shared styles -->
+  <link rel="stylesheet" href="styles/admin.css"> <!-- dedicated admin styles -->
+</head>
+<body>
+  <div class="login-container">
+    <h2>Admin Login</h2>
+    <form id="adminLoginForm">
+      <input type="email" id="adminEmail" placeholder="Enter your email" required />
+      <input type="password" id="adminPassword" placeholder="Enter your password" required />
+      <button type="submit">Login</button>
+      <p id="adminLoginMessage"></p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('adminEmail').value;
+      const password = document.getElementById('adminPassword').value;
+
+      try {
+        const response = await fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success && data.role === 'admin') {
+          document.getElementById('adminLoginMessage').textContent = "Login successful! Redirecting...";
+          localStorage.setItem('userEmail', email);
+          setTimeout(() => {
+            window.location.href = "admin_panel.html";
+          }, 1000);
+        } else {
+          document.getElementById('adminLoginMessage').textContent = data.message || "Incorrect email or password.";
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        document.getElementById('adminLoginMessage').textContent = "Server connection error.";
+      }
+    });
+  </script>
+</body>
+</html>
