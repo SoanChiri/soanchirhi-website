@@ -4,16 +4,18 @@
   font-size: 1.3em;
 }
 
-.social-media-icons a {
-  color: white;
-  margin: 0 10px;
+.social-link {
+  color: white !important;
+  font-weight: bold;
   text-decoration: none;
-  transition: color 0.3s ease;
+  margin-right: 10px;
+  transition: opacity 0.3s ease;
 }
 
-.social-media-icons a:hover {
-  color: white;
+.social-link:hover {
+  opacity: 0.7;
 }
+
 
 /* NAVIGATION SPACING AND BALANCE */
 .nav-bar {
