@@ -18,6 +18,11 @@
       <button type="submit">Login</button>
       <p id="studentLoginMessage"></p>
     </form>
+
+    <p style="text-align: center; margin-top: 10px;">
+      <a href="change_password.html">Change Password</a> |
+      <a href="forgot_password.html">Forgot Password?</a>
+    </p>
   </div>
 
   <script>
@@ -29,11 +34,9 @@
 
       try {
         const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
-
-
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password, role: 'student' })
+          body: JSON.stringify({ email, password })
         });
 
         const data = await response.json();
@@ -46,7 +49,6 @@
           } else {
             window.location.href = "student_resources.html";
           }
-
         } else {
           document.getElementById('studentLoginMessage').textContent = data.message || "Incorrect email or password.";
         }
@@ -55,11 +57,6 @@
         document.getElementById('studentLoginMessage').textContent = "Server connection error.";
       }
     });
-<p style="text-align: center; margin-top: 10px;">
-  <a href="change_password.html">Change Password</a> | 
-  <a href="forgot_password.html">Forgot Password?</a>
-</p>
-
   </script>
 </body>
 </html>
