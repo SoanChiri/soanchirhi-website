@@ -16,6 +16,11 @@
   opacity: 0.7;
 }
 
+.social-media a:visited {
+  color: white !important;
+}
+
+
 
 /* NAVIGATION SPACING AND BALANCE */
 .nav-bar {
