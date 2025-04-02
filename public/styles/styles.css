@@ -1,0 +1,843 @@
+/* Reset Defaults */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Full Page Border with Punjabi Alphabet */
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    position: relative;
+    padding: 20px;
+    border: 15px solid transparent;
+    border-image: url('images/punjabi-alphabet-border.png') 30 round;
+}
+
+/* HEADER */
+header {
+    background-color: #003f7d; /* Deep blue for professional look */
+    padding: 20px;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-img {
+    width: 130px;
+}
+
+/* Header Text */
+.header-text h1 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+.header-text p {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+/* SOCIAL MEDIA LINKS */
+.social-media {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.social-media a {
+    margin: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+.social-media a:hover {
+    background-color: #ffd700;
+    color: #003f7d;
+}
+
+/* LOGIN BUTTONS */
+.login-buttons a {
+    background-color: #ffd700; /* Gold */
+    color: #003f7d; /* Deep Blue */
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.login-buttons a:hover {
+    background-color: white;
+    color: #003f7d;
+    border: 2px solid #ffd700;
+}
+
+/* NAVIGATION BAR */
+.nav-bar {
+    background-color: #002c5f;
+    padding: 12px 0;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.nav-bar ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.nav-bar ul li {
+    display: inline;
+}
+
+.nav-bar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.nav-bar ul li a:hover {
+    background-color: #ffd700;
+    color: #002c5f;
+    padding: 10px 18px;
+}
+
+/* RESPONSIVE DESIGN */
+@media screen and (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-bar ul {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    .nav-bar ul li {
+        display: block;
+        margin: 8px 0;
+    }
+}
+
+/* ABOUT US SECTION */
+.about-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 2em;
+    color: #003f7d;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* About Us Text */
+.about-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+    padding: 0 20px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .about-container {
+        padding: 20px;
+    }
+
+    .about-text {
+        font-size: 1em;
+        padding: 0 10px;
+    }
+}
+
+/* MISSION SECTION */
+.mission-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 2em;
+    color: #003f7d;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Mission Text */
+.mission-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+    padding: 0 20px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .mission-container {
+        padding: 20px;
+    }
+
+    .mission-text {
+        font-size: 1em;
+        padding: 0 10px;
+    }
+}
+
+/* VISION SECTION */
+.vision-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 2em;
+    color: #003f7d;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Vision Text */
+.vision-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+    padding: 0 20px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .vision-container {
+        padding: 20px;
+    }
+
+    .vision-text {
+        font-size: 1em;
+        padding: 0 10px;
+    }
+}
+
+/* LEARNING OBJECTIVES SECTION */
+.objectives-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 2em;
+    color: #003f7d;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Learning Objectives Text */
+.objectives-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+    padding: 0 20px;
+}
+
+/* Bullet Points */
+.objectives-text ul {
+    margin-top: 10px;
+    padding-left: 30px;
+}
+
+.objectives-text ul li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    list-style: square;
+    color: #003f7d;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .objectives-container {
+        padding: 20px;
+    }
+
+    .objectives-text {
+        font-size: 1em;
+        padding: 0 10px;
+    }
+
+    .objectives-text ul {
+        padding-left: 20px;
+    }
+}
+
+/* LEARNING OBJECTIVES SECTION */
+.objectives-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 2em;
+    color: #003f7d;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Learning Objectives Text */
+.objectives-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+    padding: 0 20px;
+}
+
+/* Bullet Points */
+.objectives-text ul {
+    margin-top: 10px;
+    padding-left: 30px;
+}
+
+.objectives-text ul li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    list-style: square;
+    color: #003f7d;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .objectives-container {
+        padding: 20px;
+    }
+
+    .objectives-text {
+        font-size: 1em;
+        padding: 0 10px;
+    }
+
+    .objectives-text ul {
+        padding-left: 20px;
+    }
+}
+
+/* CLASSES SECTION */
+.classes-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 2em;
+    color: #003f7d;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Classes Text */
+.classes-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+    padding: 0 20px;
+}
+
+/* List Styling */
+.classes-text ul {
+    margin-top: 10px;
+    padding-left: 30px;
+}
+
+.classes-text ul li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    list-style: square;
+    color: #003f7d;
+}
+
+/* Map Styling */
+.map-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.map-img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.map-img:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .classes-container {
+        padding: 20px;
+    }
+
+    .classes-text {
+        font-size: 1em;
+        padding: 0 10px;
+    }
+
+    .classes-text ul {
+        padding-left: 20px;
+    }
+
+    .map-img {
+        width: 100%;
+    }
+}
+
+/* OUR TEAM SECTION */
+.team-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 2em;
+    color: #003f7d;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Team Text */
+.team-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+    padding: 0 20px;
+}
+
+/* Team List */
+.team-list {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.team-list li {
+    font-size: 1.1em;
+    color: #003f7d;
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+/* Bullet Styling */
+.team-list li::before {
+    content: "•";
+    color: #ffd700;
+    font-size: 1.5em;
+    position: absolute;
+    left: 0;
+    top: 2px;
+}
+
+/* Team Photo */
+.team-photo {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.team-photo img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.team-photo img:hover {
+    transform: scale(1.05);
+}
+
+/* Hidden Admin-Only Upload Section */
+.admin-only {
+    text-align: center;
+    margin-top: 10px;
+    display: none; /* Hidden by default */
+}
+
+/* Upload Label for Admin */
+.photo-upload-label {
+    font-size: 1em;
+    color: #003f7d;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.photo-upload-label:hover {
+    color: #ffd700;
+}
+
+/* GALLERY SECTION */
+.gallery-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 2em;
+    color: #003f7d;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Gallery Text */
+.gallery-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Gallery Grid */
+.gallery-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Gallery Images */
+.gallery-item {
+    width: 24%;
+    position: relative;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05);
+}
+
+/* Hidden Admin-Only Upload Section */
+.admin-only {
+    text-align: center;
+    margin-top: 20px;
+    display: none; /* Hidden by default */
+}
+
+/* Upload Label for Admin */
+.photo-upload-label {
+    display: block;
+    font-size: 1em;
+    color: #003f7d;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.photo-upload-label:hover {
+    color: #ffd700;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .gallery-grid {
+        flex-direction: column;
+    }
+
+    .gallery-item {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* CONTACT US SECTION */
+.contact-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 2em;
+    color: #003f7d;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Contact Text */
+.contact-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Contact Details */
+.contact-details {
+    text-align: center;
+    font-size: 1.1em;
+    color: #003f7d;
+    margin-bottom: 20px;
+}
+
+.contact-details p {
+    margin: 5px 0;
+}
+
+.contact-details a {
+    color: #003f7d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.contact-details a:hover {
+    color: #ffd700;
+}
+
+/* Map Styling */
+.map-container {
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* ADMISSION SECTION */
+.admission-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 2em;
+    color: #003f7d;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Admission Text */
+.admission-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+    padding: 0 20px;
+}
+
+/* Admission List */
+.admission-text ul {
+    margin-top: 10px;
+    padding-left: 30px;
+}
+
+.admi
+
+/* CONTACT US SECTION */
+.contact-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 2em;
+    color: #003f7d;
+    border-bottom: 3px solid #ffd700;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Contact Text */
+.contact-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Contact Form */
+form {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+form label {
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #003f7d;
+    margin-top: 10px;
+    text-align: left;
+}
+
+/* Input Fields */
+form input, form select, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Dropdown */
+form select {
+    appearance: none;
+    background: white;
+    cursor: pointer;
+}
+
+/* Textarea */
+form textarea {
+    resize: vertical;
+}
+
+/* Submit Button */
+form button {
+    background-color: #003f7d;
+    color: white;
+    font-size: 1.1em;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+form button:hover {
+    background-color: #ffd700;
+    color: #003f7d;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .contact-container {
+        padding: 20px;
+    }
+
+    .contact-text {
+        font-size: 1em;
+        padding: 0 10px;
+    }
+
+    form {
+        padding: 15px;
+    }
+}

@@ -1,0 +1,114 @@
+/* Admission Section */
+#admission {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 40px 35px;
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    border-left: 6px solid #004aad;
+    border-right: 6px solid #004aad;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #00274d;
+    margin-bottom: 20px;
+}
+
+/* Admission Content */
+.admission-content {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+    text-align: justify;
+    padding: 15px;
+}
+
+/* Sub Headings */
+.sub-heading {
+    font-size: 20px;
+    font-weight: bold;
+    color: #004aad;
+    margin-top: 25px;
+    text-align: left;
+}
+
+/* Admission List */
+.admission-list {
+    list-style: none;
+    padding: 0;
+}
+
+.admission-list li {
+    font-size: 18px;
+    background: #f7f7f7;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.admission-list li:hover {
+    transform: scale(1.02);
+    background: #eaf2ff;
+}
+
+/* Admission Button */
+.admission-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.admission-button a {
+    display: inline-block;
+    background-color: #004aad;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.3s ease-in-out;
+}
+
+.admission-button a:hover {
+    background-color: #00274d;
+}
+
+/* Admin Controls */
+#admin-admission-controls.hidden {
+    display: none;
+}
+
+#admin-admission-controls {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#admission-textarea {
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admission-content {
+        text-align: center;
+    }
+
+    .admission-list li {
+        flex-direction: column;
+        text-align: center;
+    }
+}

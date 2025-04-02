@@ -1,0 +1,100 @@
+/* About Us Section */
+#about {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 40px 35px;
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    border-left: 6px solid #004aad;
+    border-right: 6px solid #004aad;
+    transition: all 0.3s ease-in-out;
+}
+
+/* About Us Heading */
+.section-heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #00274d;
+    margin-bottom: 20px;
+}
+
+/* About Us Content */
+.about-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* About Us Text */
+.about-text {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+    text-align: justify;
+    padding: 15px;
+}
+
+/* Embedded Image - Wrapped by Text */
+.about-image {
+    float: right;
+    width: 240px; /* Default smaller size */
+    margin: 10px 0 10px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Ensures caption stays below the image */
+    align-items: center;
+}
+
+/* About Us Image */
+.about-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+/* Caption Styling - Now Always Below the Image */
+.image-caption {
+    font-size: 15px;
+    font-style: italic;
+    color: #444;
+    margin-top: 5px;
+    text-align: center;
+    font-weight: 500;
+    display: block; /* Ensures it does not float inline with text */
+    width: 100%;
+}
+
+/* Enlarged Image on Click */
+.about-image img.enlarged {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: auto;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-content {
+        display: block;
+    }
+
+    .about-image {
+        float: none;
+        width: 100%;
+        margin: 15px auto;
+        text-align: center;
+    }
+
+    .about-text {
+        text-align: center;
+    }
+}

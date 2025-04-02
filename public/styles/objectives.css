@@ -1,0 +1,70 @@
+/* Learning Objectives Section */
+#objectives {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 40px 35px;
+    background-color: white; /* Clean background */
+    border-radius: 14px; /* Soft edges */
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08); /* Softer shadow */
+    border-left: 6px solid #004aad; /* Subtle blue left border */
+    border-right: 6px solid #004aad; /* Subtle blue right border */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #00274d;
+    margin-bottom: 20px;
+}
+
+/* Objectives Content */
+.objectives-content {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+    text-align: justify;
+    padding: 15px;
+}
+
+/* Objectives List */
+.objectives-list ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Creates two columns */
+    gap: 10px 30px;
+    padding: 0;
+    list-style: none;
+    margin-top: 20px;
+}
+
+/* Individual Objectives */
+.objectives-list li {
+    font-size: 17px;
+    background: #f7f7f7;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+.objectives-list li strong {
+    color: #004aad;
+}
+
+.objectives-list li:hover {
+    transform: scale(1.02);
+    background: #eaf2ff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .objectives-content {
+        text-align: center;
+    }
+
+    .objectives-list ul {
+        grid-template-columns: 1fr; /* Single column on small screens */
+    }
+}

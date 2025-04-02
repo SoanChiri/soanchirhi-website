@@ -1,0 +1,43 @@
+/* Vision Section */
+#vision {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 40px 35px;
+    background-color: white; /* Clean background */
+    border-radius: 14px; /* Soft edges */
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08); /* Softer shadow */
+    border-left: 6px solid #004aad; /* Subtle blue left border */
+    border-right: 6px solid #004aad; /* Subtle blue right border */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Vision Heading */
+.section-heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #00274d;
+    margin-bottom: 20px;
+}
+
+/* Vision Content */
+.vision-content {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+    text-align: justify;
+    padding: 15px;
+}
+
+/* Highlight important text */
+.vision-content strong {
+    color: #004aad;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .vision-content {
+        text-align: center;
+    }
+}
