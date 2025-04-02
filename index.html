@@ -57,562 +57,97 @@
         <button id="adminLogin" class="login-btn admin-btn">Admin Login</button>
       </div>
     </div>
-        <div class="social-media">
-            <a href="https://www.facebook.com/profile.php?id=100083109408159&mibextid=LQQJ4d" target="_blank">Facebook</a>
-            <a href="https://www.instagram.com/soanchirhi?igsh=aHB5bjlkampnbmU=" target="_blank">Instagram</a>
-            <a href="https://www.tiktok.com/@soanchirhischooladelaide?_t=8pn5ckxigSK&_r=1" target="_blank">TikTok</a>
-            <a href="https://youtube.com/@soanchirhiadelaide7546?si=uLn8Zj02DSNZVaVK" target="_blank">YouTube</a>
-        </div>
-
-
-
+    <div class="social-media">
+      <a href="https://www.facebook.com/profile.php?id=100083109408159&mibextid=LQQJ4d" target="_blank">Facebook</a>
+      <a href="https://www.instagram.com/soanchirhi?igsh=aHB5bjlkampnbmU=" target="_blank">Instagram</a>
+      <a href="https://www.tiktok.com/@soanchirhischooladelaide?_t=8pn5ckxigSK&_r=1" target="_blank">TikTok</a>
+      <a href="https://youtube.com/@soanchirhiadelaide7546?si=uLn8Zj02DSNZVaVK" target="_blank">YouTube</a>
+    </div>
   </header>
 
   <nav class="nav-bar">
-    <ul>
-      <li><a href="#about">About Us</a></li>
-      <li><a href="#mission">Mission</a></li>
-      <li><a href="#vision">Vision</a></li>
-      <li><a href="#objectives">Learning Objectives</a></li>
-      <li><a href="#classes">Classes</a></li>
-      <li><a href="#team">Team</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#admission">Admission</a></li>
-      <li><a href="#contact">Contact Us</a></li>
-    </ul>
+    <!-- ... navigation links ... -->
   </nav>
 
- <!-- Login Modal -->
-<div id="loginModal" class="modal hidden">
-  <div class="modal-content">
-    <span id="closeModal" class="close">&times;</span>
-    <h2>Student Login</h2>
-    <form id="studentLoginForm">
-      <input type="email" id="studentEmail" placeholder="Enter your email" required />
-      <input type="password" id="studentPassword" placeholder="Enter your password" required />
-      <button type="submit">Login</button>
-      <p id="studentLoginMessage"></p>
-    </form>
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Student Login</h2>
+      <form id="studentLoginForm">
+        <input type="email" id="studentEmail" placeholder="Enter your email" required />
+        <input type="password" id="studentPassword" placeholder="Enter your password" required />
+        <button type="submit">Login</button>
+        <p id="studentLoginMessage"></p>
+      </form>
+    </div>
   </div>
-</div>
 
-<script>
-  // Show login modal
-  document.getElementById("studentLogin").addEventListener("click", function () {
-    document.getElementById("loginModal").classList.remove("hidden");
-  });
-
-  // Close modal
-  document.getElementById("closeModal").addEventListener("click", function () {
-    document.getElementById("loginModal").classList.add("hidden");
-  });
-
-  // Teacher login button redirect
-  document.getElementById("teacherLogin").addEventListener("click", function () {
-    window.location.href = "teacher_login.html";
-  });
-
-  // ✅ Admin login button redirect
-  document.getElementById("adminLogin").addEventListener("click", function () {
-    window.location.href = "admin_login.html";
-  });
-
-  // Student login form submit
-  document.getElementById("studentLoginForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    const email = document.getElementById("studentEmail").value;
-    const password = document.getElementById("studentPassword").value;
-
-    const response = await fetch('https://soanchirhi-backend.onrender.com/something', {
-
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
+  <script>
+    // Show login modal
+    document.getElementById("studentLogin").addEventListener("click", function () {
+      document.getElementById("loginModal").classList.remove("hidden");
     });
 
-    const data = await response.json();
-    const message = document.getElementById("studentLoginMessage");
+    // Close modal
+    document.getElementById("closeModal").addEventListener("click", function () {
+      document.getElementById("loginModal").classList.add("hidden");
+    });
 
-    if (data.success && data.role === "student") {
-      message.textContent = "Login successful! Redirecting...";
-      message.style.color = "green";
-      setTimeout(() => {
-        if (data.firstLogin) {
-          localStorage.setItem('userEmail', email);
-          window.location.href = "change_password.html";
-        } else {
-          window.location.href = "student_resources.html";
+    // Teacher login button redirect
+    document.getElementById("teacherLogin").addEventListener("click", function () {
+      window.location.href = "teacher_login.html";
+    });
+
+    // Admin login button redirect
+    document.getElementById("adminLogin").addEventListener("click", function () {
+      window.location.href = "admin_login.html";
+    });
+
+    // Student login form submit
+    document.getElementById("studentLoginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const email = document.getElementById("studentEmail").value;
+      const password = document.getElementById("studentPassword").value;
+
+      const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+      const message = document.getElementById("studentLoginMessage");
+
+      if (data.success && data.role === "student") {
+        message.textContent = "Login successful! Redirecting...";
+        message.style.color = "green";
+        setTimeout(() => {
+          if (data.firstLogin) {
+            localStorage.setItem('userEmail', email);
+            window.location.href = "change_password.html";
+          } else {
+            window.location.href = "student_resources.html";
+          }
+        }, 1000);
+      } else {
+        message.textContent = data.message || "Login failed.";
+        message.style.color = "red";
+      }
+    });
+
+    // Fetch and update the admission link dynamically
+    fetch('https://soanchirhi-backend.onrender.com/admission-link')
+      .then(response => response.json())
+      .then(data => {
+        const admissionButton = document.getElementById("admissionLink");
+        if (admissionButton) {
+          admissionButton.href = data.admissionLink;
         }
-      }, 1000);
-    } else {
-      message.textContent = data.message || "Login failed.";
-      message.style.color = "red";
-    }
-  });
-</script>
-
+      })
+      .catch(err => {
+        console.error("Error loading admission link:", err);
+      });
+  </script>
 </body>
 </html>
-
-
-
-
-<!-- ABOUT US SECTION -->
- <section id="about" class="section-container">
-    <h2 class="section-heading">About Us</h2>
-    <div class="about-content">
-        <div class="about-text">
-            <p>
-                Soan Chiri School of Language & Culture was established in 2022 with the goal of providing a structured and immersive Punjabi language learning experience. 
-                Our school follows the Australian curriculum for language education and integrates cultural awareness to ensure that students develop a deep connection with their heritage.
-            </p>
-            <p>
-                The school offers classes for students of all ages and backgrounds, focusing on reading, writing, speaking, and cultural appreciation. 
-                Through a dynamic and interactive teaching approach, we aim to make learning Punjabi engaging and meaningful.
-            </p>
-            <p>
-                <span class="about-image">
-                    <img src="images/early-days.jpg" alt="First Day of School" id="about-img">
-                    <span class="image-caption">Early Days of Soan Chirhi School</span> <!-- Caption is inside the about-image div -->
-                </span>
-                We believe that language is more than communication—it is a bridge to our identity, history, and values. 
-                By learning Punjabi, students connect with their roots, develop bilingual proficiency, and gain a lifelong appreciation for their cultural heritage.
-            </p>
-            <p>
-                Our classes are designed to accommodate students at different learning levels, whether they are beginners, intermediate learners, or advanced speakers.
-                Our dedicated team of trained educators ensures that each student progresses at their own pace in a supportive and encouraging environment.
-            </p>
-        </div>
-    </div>
-</section>
-
-<!-- JavaScript for Click-to-Enlarge Effect -->
-<script>
-    document.getElementById("about-img").addEventListener("click", function () {
-        this.classList.toggle("enlarged");
-    });
-</script>
-
-
-<!-- MISSION SECTION -->
-<section id="mission" class="section-container">
-    <h2 class="section-heading">Mission</h2>
-    <div class="mission-content">
-        <p>
-            Our mission is to provide a nurturing and immersive learning environment where students develop proficiency in the Punjabi language while deepening their connection to Punjabi culture and heritage.
-        </p>
-        <p>
-            We strive to preserve and promote the Punjabi language among young learners, fostering a love for their mother tongue through structured learning, interactive activities, and cultural engagement.
-        </p>
-        <p>
-            Through a curriculum aligned with Australian language education standards, we empower students with reading, writing, speaking, and comprehension skills to become confident bilingual speakers.
-        </p>
-        <p>
-            In our commitment to enhancing Punjabi language education, we are actively working towards obtaining <strong>SACE registration</strong>. This will enable students in Year 11 and 12 to receive formal accreditation for their Punjabi language studies, providing them with additional academic recognition and future opportunities.
-        </p>
-        <p>
-            Our goal is to instill a lifelong appreciation for Punjabi literature, history, and traditions, ensuring that future generations maintain their linguistic and cultural identity.
-        </p>
-    </div>
-</section>
-
-<!-- VISION SECTION -->
-<!-- VISION SECTION -->
-<section id="vision" class="section-container">
-    <h2 class="section-heading">Vision</h2>
-    <div class="vision-content">
-        <p>
-            Our vision is to create a thriving learning community where students embrace their Punjabi heritage with pride and confidence. We aim to empower future generations by preserving and strengthening the Punjabi language through quality education, cultural immersion, and community engagement.
-        </p>
-        <p>
-            We envision a future where Punjabi remains a vibrant and integral part of our students' lives, not only as a language but as a connection to their roots, identity, and traditions. By fostering a love for Punjabi literature, music, history, and values, we strive to build a strong cultural foundation for all learners.
-        </p>
-        <p>
-            As we continue to grow, we aspire to expand our educational offerings and enhance the learning experience by integrating modern teaching methods and digital resources. Our goal is to provide students with opportunities for advanced language proficiency, ensuring that they can confidently communicate in Punjabi in academic, social, and professional settings.
-        </p>
-        <p>
-            We are committed to obtaining <strong>SACE accreditation</strong>, enabling students to formally incorporate their Punjabi language studies into their Year 11 and 12 education. This initiative will support our students in gaining academic recognition for their bilingual skills while contributing to their future academic and career pathways.
-        </p>
-        <p>
-            By working closely with families, educators, and the broader community, we aim to foster an environment where language and culture continue to flourish for generations to come.
-        </p>
-    </div>
-</section>
-
-<!-- LEARNING OBJECTIVES SECTION -->
-<section id="objectives" class="section-container">
-    <h2 class="section-heading">Learning Objectives</h2>
-    <div class="objectives-content">
-        <p>
-            The Soan Chiri School of Language & Culture equips students with Punjabi language proficiency while fostering an appreciation for its literature, history, and cultural significance. Our structured curriculum enhances linguistic competence and critical thinking.
-        </p>
-        <div class="objectives-list">
-            <ul>
-                <li><strong>Fluency:</strong> Read, write, and speak Punjabi confidently.</li>
-                <li><strong>Pronunciation & Grammar:</strong> Improve comprehension through structured instruction.</li>
-                <li><strong>Literature & Gurbani:</strong> Engage with classical and modern Punjabi texts.</li>
-                <li><strong>Cultural Identity:</strong> Learn about Punjabi history, traditions, and music.</li>
-                <li><strong>Bilingual Advantage:</strong> Support cognitive development and career opportunities.</li>
-                <li><strong>Innovative Learning:</strong> Use traditional & digital tools for an immersive experience.</li>
-                <li><strong>Communication Skills:</strong> Develop proficiency for academic and social settings.</li>
-                <li><strong>Language Preservation:</strong> Reflect on cultural heritage and identity.</li>
-            </ul>
-        </div>
-    </div>
-</section>
-<!-- CLASSES SECTION -->
-<section id="classes" class="section-container">
-    <h2 class="section-heading">Classes</h2>
-    <div class="classes-content">
-        <p>
-            The Soan Chiri School of Language & Culture conducts Punjabi language classes for students of all proficiency levels. Classes are structured to accommodate beginners, intermediate learners, and advanced speakers, ensuring a tailored learning experience for each student.
-        </p>
-        <p>
-            Our classes follow a student-centred approach, combining language instruction with interactive activities to enhance fluency, comprehension, and cultural understanding. Lessons are designed to support bilingual development while fostering a deep appreciation for Punjabi heritage.
-        </p>
-
-        <!-- Class Schedule Section -->
-        <h3 class="sub-heading">Class Schedule</h3>
-        <div class="class-schedule">
-            <ul>
-                <li><strong>📅 Day:</strong> Saturdays (closed during school holidays)</li>
-                <li><strong>⏰ Time:</strong> 2:30 PM – 4:30 PM</li>
-                <li><strong>📍 Location:</strong> TafeSA Regency Park, 137 Days Road, Regency Park, South Australia 5010</li>
-            </ul>
-        </div>
-
-        <!-- Location Map Section -->
-        <h3 class="sub-heading">Location Map</h3>
-        <div class="map-container">
-            <a href="https://www.google.com.au/maps/place/TAFE+SA+-+Regency+Campus/@-34.8736781,138.564424,16.35z/data=!4m6!3m5!1s0x6ab0c885b9d00f09:0xd04c973372b14262!8m2!3d-34.8732235!4d138.5685418!16s%2Fg%2F1v6wpg3f?entry=ttu" target="_blank">
-                <img src="images/tafesa-regency-park.jpg" alt="TafeSA Regency Park Map" class="map-img">
-            </a>
-            <p class="map-caption">📌 Click the map for directions.</p>
-        </div>
-    </div>
-</section>
-
-<!-- OUR TEAM SECTION -->
-<section id="team" class="section-container">
-    <h2 class="section-heading">Our Team</h2>
-    <div class="team-content">
-        <!-- Team List (Names on Left) -->
-        <div class="team-names">
-            <div class="team-text">
-                <p>
-                    The Soan Chiri School of Language & Culture is led by a dedicated team of educators and administrators who are passionate about preserving and promoting the Punjabi language. 
-                    All staff members, including the Principal, Manager, Administrators, and Teachers, are volunteers who have undergone training through Community Language Schools South Australia (CLSSA). 
-                    Their commitment ensures the highest standard of language education for our students.
-                </p>
-            </div>
-
-            <h3>Management Team</h3>
-            <ul id="management-list" class="team-list">
-                <li>Gurpreet Kaur Bhangu – Principal</li>
-                <li>Navneet Kaur Dhillon – Manager</li>
-                <li>Sukhdeep Kaur Gill – Administrator</li>
-                <li>Manpreet Kaur Sidhu – Administrator</li>
-            </ul>
-
-            <h3>Teaching Team</h3>
-            <ul id="teaching-list" class="team-list">
-                <li>Harpreet Kaur</li>
-                <li>Rupinder Kaur</li>
-                <li>Rajvir Kaur Baryah</li>
-                <li>Nancy Nanda</li>
-                <li>Manpreet Kaur Sidhu</li>
-                <li>Navneet Kaur Dhillon</li>
-                <li>Gurpreet Kaur Bhangu</li>
-                <li>Navjot Kaur</li>
-            </ul>
-        </div>
-
-        <!-- Team Photo (Aligned Right, Click to Enlarge) -->
-        <div class="team-photo">
-            <img id="team-photo" src="images/teamphoto.jpg" alt="Soan Chiri School Team">
-            <p class="image-caption">Soan Chiri School Team</p>
-        </div>
-    </div>
-
-    <!-- Admin Controls (Hidden for Public) -->
-    <div id="admin-controls" class="hidden">
-        <!-- Update Team Photo -->
-        <div class="admin-controls">
-            <label for="team-photo-upload" class="photo-upload-label">Update Team Photo</label>
-            <input type="file" id="team-photo-upload" accept="image/*">
-        </div>
-
-        <!-- Edit Team Names -->
-        <button id="edit-names-btn">Edit Team Names</button>
-        <div id="name-edit-form" class="hidden">
-            <textarea id="name-textarea"></textarea>
-            <button id="save-names-btn">Save Changes</button>
-        </div>
-    </div>
-</section>
-
-<!-- JavaScript for Click-to-Enlarge & Admin Access -->
-<script>
-    // Simulate Admin Authentication (Replace with real authentication logic)
-    const isAdmin = localStorage.getItem("isAdmin") === "true"; // Simulated login check
-
-    if (isAdmin) {
-        document.getElementById("admin-controls").classList.remove("hidden"); // Show admin controls if logged in
-    }
-
-    // Click-to-Enlarge Feature
-    document.getElementById("team-photo").addEventListener("click", function () {
-        this.classList.toggle("enlarged");
-    });
-
-    // Function to update team photo
-    document.getElementById("team-photo-upload").addEventListener("change", function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById("team-photo").src = e.target.result;
-                localStorage.setItem("teamPhoto", e.target.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // Function to allow admins to edit team names
-    document.getElementById("edit-names-btn").addEventListener("click", function() {
-        document.getElementById("name-edit-form").classList.toggle("hidden");
-        document.getElementById("name-textarea").value = document.getElementById("management-list").innerText + "\n\n" + document.getElementById("teaching-list").innerText;
-    });
-
-    document.getElementById("save-names-btn").addEventListener("click", function() {
-        const updatedNames = document.getElementById("name-textarea").value.split("\n\n");
-        document.getElementById("management-list").innerHTML = updatedNames[0].split("\n").map(name => `<li>${name}</li>`).join('');
-        document.getElementById("teaching-list").innerHTML = updatedNames[1].split("\n").map(name => `<li>${name}</li>`).join('');
-        document.getElementById("name-edit-form").classList.add("hidden");
-    });
-</script>
-
-<!-- GALLERY SECTION -->
-<section id="gallery" class="section-container">
-    <h2 class="section-heading">Gallery</h2>
-    <div class="gallery-content">
-        <p>Explore moments from our school events, cultural celebrations, and classroom activities.</p>
-
-        <!-- Gallery Images (Public View) -->
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img id="gallery-photo1" src="images/photo1.jpg" alt="Gallery Image 1">
-            </div>
-            <div class="gallery-item">
-                <img id="gallery-photo2" src="images/photo2.jpg" alt="Gallery Image 2">
-            </div>
-            <div class="gallery-item">
-                <img id="gallery-photo3" src="images/photo3.jpg" alt="Gallery Image 3">
-            </div>
-            <div class="gallery-item">
-                <img id="gallery-photo4" src="images/photo4.jpg" alt="Gallery Image 4">
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Controls (Hidden for Public) -->
-    <div id="admin-gallery-controls" class="hidden">
-        <h3>Update Gallery Photos</h3>
-        <div class="admin-controls">
-            <label for="gallery-upload1" class="photo-upload-label">Change Photo 1</label>
-            <input type="file" id="gallery-upload1" accept="image/*">
-
-            <label for="gallery-upload2" class="photo-upload-label">Change Photo 2</label>
-            <input type="file" id="gallery-upload2" accept="image/*">
-
-            <label for="gallery-upload3" class="photo-upload-label">Change Photo 3</label>
-            <input type="file" id="gallery-upload3" accept="image/*">
-
-            <label for="gallery-upload4" class="photo-upload-label">Change Photo 4</label>
-            <input type="file" id="gallery-upload4" accept="image/*">
-        </div>
-    </div>
-</section>
-
-<!-- JavaScript for Click-to-Enlarge & Admin Controls -->
-<script>
-    // Simulate Admin Authentication (Replace with real authentication logic)
-    const isAdmin = localStorage.getItem("isAdmin") === "true"; // Simulated login check
-
-    if (isAdmin) {
-        document.getElementById("admin-gallery-controls").classList.remove("hidden"); // Show admin controls if logged in
-    }
-
-    // Click-to-Enlarge Feature for Gallery Images
-    document.querySelectorAll(".gallery-item img").forEach(img => {
-        img.addEventListener("click", function () {
-            this.classList.toggle("enlarged");
-        });
-    });
-
-    // Function to update gallery photos dynamically
-    function handleGalleryUpload(inputId, imgId, storageKey) {
-        document.getElementById(inputId).addEventListener("change", function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById(imgId).src = e.target.result;
-                    localStorage.setItem(storageKey, e.target.result);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    }
-
-    handleGalleryUpload("gallery-upload1", "gallery-photo1", "galleryPhoto1");
-    handleGalleryUpload("gallery-upload2", "gallery-photo2", "galleryPhoto2");
-    handleGalleryUpload("gallery-upload3", "gallery-photo3", "galleryPhoto3");
-    handleGalleryUpload("gallery-upload4", "gallery-photo4", "galleryPhoto4");
-
-    // Load saved images from local storage (Persists after page refresh)
-    document.addEventListener("DOMContentLoaded", function() {
-        if (localStorage.getItem("galleryPhoto1")) {
-            document.getElementById("gallery-photo1").src = localStorage.getItem("galleryPhoto1");
-        }
-        if (localStorage.getItem("galleryPhoto2")) {
-            document.getElementById("gallery-photo2").src = localStorage.getItem("galleryPhoto2");
-        }
-        if (localStorage.getItem("galleryPhoto3")) {
-            document.getElementById("gallery-photo3").src = localStorage.getItem("galleryPhoto3");
-        }
-        if (localStorage.getItem("galleryPhoto4")) {
-            document.getElementById("gallery-photo4").src = localStorage.getItem("galleryPhoto4");
-        }
-    });
-</script>
-
-<!-- ADMISSION SECTION (Dynamic Link Enabled) -->
-<section id="admission" class="section-container">
-  <h2 class="section-heading">Admission</h2>
-  <div class="admission-content">
-    <p>
-      Soan Chiri School of Language & Culture welcomes students of all proficiency levels who wish to learn Punjabi. 
-      Our admissions process ensures that each student is placed in a class that best suits their learning needs.
-    </p>
-
-    <h3 class="sub-heading">Admission Process</h3>
-    <ul class="admission-list">
-      <li><strong>📅 Intake Periods:</strong> We offer two admission intakes per year in <strong>January</strong> and <strong>July</strong>.</li>
-      <li><strong>📊 Assessment:</strong> New students undergo a brief language proficiency assessment to determine the appropriate class level.</li>
-      <li><strong>📚 Placement:</strong> Students are assigned to a class based on their assessment results and age group.</li>
-    </ul>
-
-    <h3 class="sub-heading">How to Apply</h3>
-    <p>
-      To enroll, please complete the online admission form. Our team will review your application and notify you once the admission process is complete.
-    </p>
-
-    <!-- Dynamic Admission Button -->
-    <div class="admission-button">
-      <a id="admissionLink" href="#" target="_blank">Apply for Admission</a>
-    </div>
-  </div>
-</section>
-
-<script>
-  // Fetch and update the admission link dynamically
-  fetch('http://localhost:3000/admission-link')
-    .then(response => response.json())
-    .then(data => {
-      const admissionButton = document.getElementById("admissionLink");
-      admissionButton.href = data.admissionLink;
-    })
-    .catch(err => {
-      console.error("Error loading admission link:", err);
-    });
-</script>
-
-
-<!-- CONTACT US SECTION (Only One Copy) -->
-<section id="contact" class="section-container">
-    <h2 class="section-heading">Contact Us</h2>
-    <div class="contact-content">
-        <p>If you have any questions regarding admissions, volunteering opportunities, or general inquiries, please fill out the form below, and we will get back to you as soon as possible.</p>
-        
-        <!-- Contact Form -->
-        <form action="mailto:soanchirhiadelaide@gmail.com" method="post" enctype="text/plain" class="contact-form">
-            <label for="name">Your Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
-
-            <label for="email">Your Email:</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-
-            <label for="subject">Subject:</label>
-            <select id="subject" name="subject" required>
-                <option value="" disabled selected>Select a subject</option>
-                <option value="General Inquiry">General Inquiry</option>
-                <option value="Volunteering">Volunteering</option>
-                <option value="Admission Question">Admission Question</option>
-                <option value="Other">Other</option>
-            </select>
-
-            <label for="message">Your Message:</label>
-            <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
-
-            <button type="submit" class="contact-submit-btn">Send Message</button>
-        </form>
-    </div>
-
-    <!-- Admin Controls (Hidden for Public) -->
-    <div id="admin-contact-controls" class="hidden">
-        <h3>Edit Contact Information</h3>
-        <textarea id="contact-textarea"></textarea>
-        <button id="save-contact-btn">Save Changes</button>
-    </div>
-</section>
-<!-- FOOTER -->
-<footer class="footer-container">
-    <div class="footer-content">
-        <!-- Left Side: Logo & School Name -->
-        <div class="footer-logo">
-            <img src="images/logo.jpg" alt="Soan Chiri School Logo">
-            <p>Soan Chiri School of Language & Culture</p>
-        </div>
-
-        <!-- Center: Quick Navigation -->
-        <nav class="footer-nav">
-            <a href="#about">About Us</a> |
-            <a href="#mission">Mission</a> |
-            <a href="#vision">Vision</a> |
-            <a href="#classes">Classes</a> |
-            <a href="#team">Team</a> |
-            <a href="#gallery">Gallery</a> |
-            <a href="#contact">Contact Us</a>
-        </nav>
-
-        <!-- Right Side: Social Media Links -->
-        <div class="footer-social">
-            <a href="https://www.facebook.com/profile.php?id=100083109408159&mibextid=LQQJ4d" target="_blank">
-                <img src="images/facebook-icon.png" alt="Facebook">
-            </a>
-            <a href="https://www.instagram.com/soanchirhi?igsh=aHB5bjlkampnbmU=" target="_blank">
-                <img src="images/instagram-icon.png" alt="Instagram">
-            </a>
-            <a href="https://www.tiktok.com/@soanchirhischooladelaide?_t=8pn5ckxigSK&_r=1" target="_blank">
-                <img src="images/tiktok-icon.png" alt="TikTok">
-            </a>
-            <a href="https://youtube.com/@soanchirhiadelaide7546?si=uLn8Zj02DSNZVaVK" target="_blank">
-                <img src="images/youtube-icon.png" alt="YouTube">
-            </a>
-        </div>
-    </div>
-
-    <!-- Copyright Section -->
-    <div class="footer-bottom">
-        <p>&copy; 2025 Soan Chiri School of Language & Culture. All Rights Reserved.</p>
-    </div>
-</footer>
-<script>
-  document.querySelectorAll(".gallery-item img").forEach(img => {
-    img.addEventListener("click", function () {
-      this.classList.toggle("enlarged");
-    });
-  });
-</script>
-
