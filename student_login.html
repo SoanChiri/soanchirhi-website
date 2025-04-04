@@ -8,6 +8,69 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="styles/forms.css"> <!-- optional shared styles -->
   <link rel="stylesheet" href="styles/student.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef3f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-container h2 {
+      color: #2e3a74;
+      margin-bottom: 25px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #2e3a74;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #1c265a;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
 </head>
 <body>
   <div class="login-container">
@@ -15,14 +78,9 @@
     <form id="studentLoginForm">
       <input type="email" id="studentEmail" placeholder="Enter your email" required />
       <input type="password" id="studentPassword" placeholder="Enter your password" required />
-      <button type="submit">Login</button>
-      <p id="studentLoginMessage"></p>
+      <button type="submit" class="login-btn">Login</button>
+      <p id="studentLoginMessage" class="message"></p>
     </form>
-
-    <p style="text-align: center; margin-top: 10px;">
-      <a href="change_password.html">Change Password</a> |
-      <a href="forgot_password.html">Forgot Password?</a>
-    </p>
   </div>
 
   <script>
