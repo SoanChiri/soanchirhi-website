@@ -4,7 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Resources - Soan Chirhi School</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/main.css"> <!-- Add custom CSS here -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2e3a74;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        header p {
+            margin: 5px 0;
+            font-size: 1.2em;
+        }
+
+        .nav-bar {
+            margin-top: 10px;
+        }
+
+        .nav-bar a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .nav-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .resource-container {
+            margin: 40px;
+        }
+
+        .resource-section {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-section h2 {
+            color: #2e3a74;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #e6f0ff;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1em;
+        }
+
+        ul li a {
+            color: #2e3a74;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        ul li a:hover {
+            color: #1c265a;
+        }
+
+        .resource-icon {
+            font-size: 1.5em;
+            color: #2e3a74;
+        }
+
+        .level-banner {
+            background-color: #ffcc00;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
@@ -20,18 +118,70 @@
 
     <!-- STUDENT RESOURCE CONTAINER -->
     <div class="resource-container">
-        <div id="student-resources" class="resource-section">
+        <div class="resource-section">
             <h2>Your Resources</h2>
-            <ul>
-                <li><a href="https://drive.google.com/drive/folders/18Od5YhXBbFTm8iVHeFxCuvMW9fbpghK5?usp=sharing" target="_blank">Level 1 Resources</a></li>
-                <li><a href="https://drive.google.com/drive/folders/11n1Yr4HjGVI2omto_op1ZScOIt1W6QCb?usp=sharing" target="_blank">Level 2 Resources</a></li>
-                <li><a href="https://drive.google.com/drive/folders/1WX5-NhjNI0ja9Exo6HcAu_NpLUk9X5_t?usp=sharing" target="_blank">Level 3 Resources</a></li>
-                <li><a href="https://drive.google.com/drive/folders/1zlu52Tq9f-YltfDHIodT-MaS0U9pdhwX?usp=sharing" target="_blank">Level 4 Resources</a></li>
-                <li><a href="https://drive.google.com/drive/folders/1Vswrt907zK2yzajD6lK5IQMf7UCYI-Ig?usp=sharing" target="_blank">Level 5 Resources</a></li>
-                <li><a href="https://drive.google.com/drive/folders/1HhjpZ2_psDZuxGeBuk4Ibu2F8amXGyij?usp=sharing" target="_blank">SACE Resources</a></li>
+
+            <!-- Level Banner for Current Level -->
+            <div id="levelBanner" class="level-banner"></div>
+
+            <ul id="resourceLinks">
+                <!-- Resource Links will be dynamically inserted here -->
             </ul>
         </div>
     </div>
 
+    <script>
+        // Function to set resources based on the user's level
+        function setResources(level) {
+            const resourceLinks = {
+                'Level 1': [
+                    { text: 'Level 1 Resources', link: 'https://drive.google.com/drive/folders/18Od5YhXBbFTm8iVHeFxCuvMW9fbpghK5?usp=sharing', icon: '📚' },
+                    { text: 'SACE Resources', link: 'https://drive.google.com/drive/folders/1HhjpZ2_psDZuxGeBuk4Ibu2F8amXGyij?usp=sharing', icon: '🎓' }
+                ],
+                'Level 2': [
+                    { text: 'Level 2 Resources', link: 'https://drive.google.com/drive/folders/11n1Yr4HjGVI2omto_op1ZScOIt1W6QCb?usp=sharing', icon: '📘' },
+                    { text: 'SACE Resources', link: 'https://drive.google.com/drive/folders/1HhjpZ2_psDZuxGeBuk4Ibu2F8amXGyij?usp=sharing', icon: '🎓' }
+                ],
+                'Level 3': [
+                    { text: 'Level 3 Resources', link: 'https://drive.google.com/drive/folders/1WX5-NhjNI0ja9Exo6HcAu_NpLUk9X5_t?usp=sharing', icon: '📙' },
+                    { text: 'SACE Resources', link: 'https://drive.google.com/drive/folders/1HhjpZ2_psDZuxGeBuk4Ibu2F8amXGyij?usp=sharing', icon: '🎓' }
+                ],
+                'Level 4': [
+                    { text: 'Level 4 Resources', link: 'https://drive.google.com/drive/folders/1zlu52Tq9f-YltfDHIodT-MaS0U9pdhwX?usp=sharing', icon: '📒' },
+                    { text: 'SACE Resources', link: 'https://drive.google.com/drive/folders/1HhjpZ2_psDZuxGeBuk4Ibu2F8amXGyij?usp=sharing', icon: '🎓' }
+                ],
+                'Level 5': [
+                    { text: 'Level 5 Resources', link: 'https://drive.google.com/drive/folders/1Vswrt907zK2yzajD6lK5IQMf7UCYI-Ig?usp=sharing', icon: '📕' },
+                    { text: 'SACE Resources', link: 'https://drive.google.com/drive/folders/1HhjpZ2_psDZuxGeBuk4Ibu2F8amXGyij?usp=sharing', icon: '🎓' }
+                ],
+                'SACE': [
+                    { text: 'SACE Resources', link: 'https://drive.google.com/drive/folders/1HhjpZ2_psDZuxGeBuk4Ibu2F8amXGyij?usp=sharing', icon: '🎓' }
+                ]
+            };
+
+            const levelBanner = document.getElementById('levelBanner');
+            const resourceLinks = document.getElementById('resourceLinks');
+
+            // Set the banner text based on the level
+            levelBanner.textContent = `Resources for ${level}`;
+
+            // Clear previous links
+            resourceLinks.innerHTML = '';
+
+            // Dynamically add the resources for the given level
+            const resources = resourceLinks[level];
+            resources.forEach(resource => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${resource.icon} <a href="${resource.link}" target="_blank">${resource.text}</a>`;
+                resourceLinks.appendChild(listItem);
+            });
+        }
+
+        // Get the user's level from local storage or backend, this is just for the example
+        const userLevel = 'Level 3';  // Change this value to simulate different levels
+
+        // Set the resources based on the user's level
+        setResources(userLevel);
+    </script>
 </body>
 </html>
