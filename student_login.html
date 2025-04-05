@@ -106,18 +106,28 @@
             window.location.href = "change_password.html";
           } else {
             // Redirect to the respective resources page based on the student's level
-            if (data.level === 'Level 1') {
-              window.location.href = "level1_resources.html";
-            } else if (data.level === 'Level 2') {
-              window.location.href = "level2_resources.html";
-            } else if (data.level === 'Level 3') {
-              window.location.href = "level3_resources.html";
-            } else if (data.level === 'Level 4') {
-              window.location.href = "level4_resources.html";
-            } else if (data.level === 'Level 5') {
-              window.location.href = "level5_resources.html";
-            } else if (data.level === 'SACE') {
-              window.location.href = "sace_resources.html";
+            switch (data.level) {
+              case 'Level 1':
+                window.location.href = "level1_resources.html";
+                break;
+              case 'Level 2':
+                window.location.href = "level2_resources.html";
+                break;
+              case 'Level 3':
+                window.location.href = "level3_resources.html";
+                break;
+              case 'Level 4':
+                window.location.href = "level4_resources.html";
+                break;
+              case 'Level 5':
+                window.location.href = "level5_resources.html";
+                break;
+              case 'SACE':
+                window.location.href = "sace_resources.html";
+                break;
+              default:
+                document.getElementById('studentLoginMessage').textContent = "Error: Invalid level.";
+                break;
             }
           }
         } else {
