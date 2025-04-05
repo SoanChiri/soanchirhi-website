@@ -160,25 +160,31 @@
             };
 
             const levelBanner = document.getElementById('levelBanner');
-            const resourceLinks = document.getElementById('resourceLinks');
+            const resourceLinksContainer = document.getElementById('resourceLinks');
 
             // Set the banner text based on the level
             levelBanner.textContent = `Resources for ${level}`;
 
             // Clear previous links
-            resourceLinks.innerHTML = '';
+            resourceLinksContainer.innerHTML = '';
 
-            // Dynamically add the resources for the given level
-            const resources = resourceLinks[level];
-            resources.forEach(resource => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `${resource.icon} <a href="${resource.link}" target="_blank">${resource.text}</a>`;
-                resourceLinks.appendChild(listItem);
-            });
+            // Check if the level exists in the resourceLinks object
+            if (resourceLinks[level]) {
+                const resources = resourceLinks[level];
+                resources.forEach(resource => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `${resource.icon} <a href="${resource.link}" target="_blank">${resource.text}</a>`;
+                    resourceLinksContainer.appendChild(listItem);
+                });
+            } else {
+                // If no resources for the level, show an error message
+                levelBanner.textContent = `No resources available for ${level}`;
+                resourceLinksContainer.innerHTML = '<li>No resources available for this level.</li>';
+            }
         }
 
-        // Get the user's level from local storage or backend, this is just for the example
-        const userLevel = 'Level 3';  // Change this value to simulate different levels
+        // Get the user's level from local storage or backend
+        const userLevel = localStorage.getItem('userLevel') || 'Level 3'; // Use a default if not set
 
         // Set the resources based on the user's level
         setResources(userLevel);
