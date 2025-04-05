@@ -64,11 +64,16 @@
     .message {
       margin-top: 15px;
       font-weight: bold;
-      color: green;
     }
 
     .error {
       color: red;
+      font-weight: bold;
+    }
+
+    .success {
+      color: green;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -99,8 +104,13 @@
 
         const data = await response.json();
 
+        // Clear previous messages
+        document.getElementById('studentLoginMessage').textContent = "";
+
         if (data.success) {
           document.getElementById('studentLoginMessage').textContent = "Login successful! Redirecting...";
+          document.getElementById('studentLoginMessage').className = 'message success';
+
           if (data.firstLogin) {
             localStorage.setItem('userEmail', email);
             window.location.href = "change_password.html";
@@ -127,15 +137,18 @@
                 break;
               default:
                 document.getElementById('studentLoginMessage').textContent = "Error: Invalid level.";
+                document.getElementById('studentLoginMessage').className = 'message error';
                 break;
             }
           }
         } else {
           document.getElementById('studentLoginMessage').textContent = data.message || "Incorrect email or password.";
+          document.getElementById('studentLoginMessage').className = 'message error';
         }
       } catch (error) {
         console.error('Fetch error:', error);
         document.getElementById('studentLoginMessage').textContent = "Server connection error.";
+        document.getElementById('studentLoginMessage').className = 'message error';
       }
     });
   </script>
