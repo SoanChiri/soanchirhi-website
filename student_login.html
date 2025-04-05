@@ -94,7 +94,7 @@
         const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
+          body: JSON.stringify({ email, password, role: 'student' })
         });
 
         const data = await response.json();
@@ -105,7 +105,20 @@
             localStorage.setItem('userEmail', email);
             window.location.href = "change_password.html";
           } else {
-            window.location.href = "student_resources.html";
+            // Redirect to the respective resources page based on the student's level
+            if (data.level === 'Level 1') {
+              window.location.href = "level1_resources.html";
+            } else if (data.level === 'Level 2') {
+              window.location.href = "level2_resources.html";
+            } else if (data.level === 'Level 3') {
+              window.location.href = "level3_resources.html";
+            } else if (data.level === 'Level 4') {
+              window.location.href = "level4_resources.html";
+            } else if (data.level === 'Level 5') {
+              window.location.href = "level5_resources.html";
+            } else if (data.level === 'SACE') {
+              window.location.href = "sace_resources.html";
+            }
           }
         } else {
           document.getElementById('studentLoginMessage').textContent = data.message || "Incorrect email or password.";
