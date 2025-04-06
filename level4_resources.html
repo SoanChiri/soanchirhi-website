@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Level 4 Resources - Soan Chirhi School</title>
     <link rel="stylesheet" href="styles/main.css"> <!-- Add custom CSS here -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2e3a74;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        header p {
+            margin: 5px 0;
+            font-size: 1.2em;
+        }
+
+        .nav-bar {
+            margin-top: 10px;
+        }
+
+        .nav-bar a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .nav-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .resource-container {
+            margin: 40px;
+        }
+
+        .resource-section {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-section h2 {
+            color: #2e3a74;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .resource-button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px 0;
+            background-color: #2e3a74;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 8px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .resource-button:hover {
+            background-color: #1c265a;
+        }
+
+        .level-banner {
+            background-color: #ffcc00;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            color: white;
+        }
+    </style>
 </head>
 <body>
+
     <!-- HEADER -->
     <header>
         <h1>Level 4 Resources</h1>
@@ -18,50 +102,19 @@
         </nav>
     </header>
 
-    <!-- RESOURCE CONTAINER -->
+    <!-- STUDENT RESOURCE CONTAINER -->
     <div class="resource-container">
         <div class="resource-section">
-            <h2>Level 4 Resources</h2>
-            <p>Click below to access Level 4 resources:</p>
-            <ul>
-                <!-- Link to Level 4 Google Drive Folder -->
-                <li><a href="https://drive.google.com/drive/folders/1zlu52Tq9f-YltfDHIodT-MaS0U9pdhwX?usp=sharing" target="_blank">Level 4 Resources Folder</a></li>
-            </ul>
-        </div>
-    </div>
-</body>
-</html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Level 4 Resources - Soan Chirhi School</title>
-    <link rel="stylesheet" href="styles/main.css"> <!-- Add custom CSS here -->
-</head>
-<body>
-    <!-- HEADER -->
-    <header>
-        <h1>Level 4 Resources</h1>
-        <p>Browse and access materials for Level 4</p>
-        <nav class="nav-bar">
-            <a href="index.html">Home</a>
-            <a href="student_login.html">Logout</a>
-        </nav>
-    </header>
+            <h2>Your Level 4 Resources</h2>
 
-    <!-- RESOURCE CONTAINER -->
-    <div class="resource-container">
-        <div class="resource-section">
-            <h2>Level 4 Resources</h2>
-            <p>Click below to access Level 4 resources:</p>
-            <ul>
-                <!-- Link to Level 4 Google Drive Folder -->
-                <li><a href="https://drive.google.com/drive/folders/1zlu52Tq9f-YltfDHIodT-MaS0U9pdhwX?usp=sharing" target="_blank">Level 4 Resources Folder</a></li>
-            </ul>
+            <!-- Level Banner for Current Level -->
+            <div id="levelBanner" class="level-banner"></div>
+
+            <a href="https://drive.google.com/drive/folders/1zlu52Tq9f-YltfDHIodT-MaS0U9pdhwX?usp=sharing" class="resource-button" target="_blank">
+                Level 4 Resources Folder
+            </a>
         </div>
     </div>
+
 </body>
 </html>
->>>>>>> 4485bcd743281c709f232c28f63e0a64182caf74
