@@ -5,13 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Resources - Soan Chirhi School</title>
     <link rel="stylesheet" href="styles/main.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2e3a74;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        header p {
+            margin: 5px 0;
+            font-size: 1.2em;
+        }
+
+        .nav-bar {
+            margin-top: 10px;
+        }
+
+        .nav-bar a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        .nav-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .resource-container {
+            margin: 40px;
+        }
+
+        .resource-section {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-section h2 {
+            color: #2e3a74;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .resource-button {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #ffcc00;
+            color: white;
+            font-size: 1.2em;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .resource-button:hover {
+            background-color: #e6b800;
+        }
+
+        .resource-button:active {
+            background-color: #b38f00;
+        }
+
+        .resource-list a {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #2e3a74;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .resource-list a:hover {
+            background-color: #1c265a;
+        }
+    </style>
 </head>
 <body>
 
     <!-- HEADER -->
     <header>
         <h1>Teacher Resources</h1>
-        <p>Access teaching materials and resources below.</p>
+        <p>Access all available teaching materials below.</p>
         <nav class="nav-bar">
             <a href="index.html">Home</a>
             <a href="teacher_login.html">Logout</a>
@@ -21,12 +113,44 @@
     <!-- TEACHER RESOURCE CONTAINER -->
     <div class="resource-container">
         <div id="teacher-resources" class="resource-section">
-            <h2>Your Teaching Resources</h2>
-            <ul>
-                <li><a href="https://drive.google.com/drive/folders/1LikxTTfszsilspuF98kru6po5BJporHp?usp=sharing" target="_blank">Open Teacher Resource Folder</a></li>
-            </ul>
+            <h2>All Available Resources</h2>
+            <p>Click the buttons below to access resources:</p>
+            <div id="resourceLinks" class="resource-list">
+                <!-- Resource links will be inserted here dynamically -->
+            </div>
         </div>
     </div>
+
+    <script>
+        // Fetch all resources for teachers
+        fetch('https://soanchirhi-backend.onrender.com/all-resources', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token') // Use token for authorization
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const resourceLinksContainer = document.getElementById('resourceLinks');
+            // Loop through all levels of resources and teacher resources
+            for (const [level, resources] of Object.entries(data)) {
+                const levelTitle = document.createElement('h3');
+                levelTitle.textContent = `${level.charAt(0).toUpperCase() + level.slice(1)} Resources`;
+                resourceLinksContainer.appendChild(levelTitle);
+
+                resources.forEach(resource => {
+                    const listItem = document.createElement('a');
+                    listItem.href = resource.url;
+                    listItem.target = "_blank";
+                    listItem.textContent = resource.title;
+                    resourceLinksContainer.appendChild(listItem);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching resources:', error);
+        });
+    </script>
 
 </body>
 </html>
