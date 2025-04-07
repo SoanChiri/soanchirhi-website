@@ -4,11 +4,8 @@
   <meta charset="UTF-8" />
   <title>Admin Panel - Soan Chirhi School</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Optional CSS for styling -->
   <link rel="stylesheet" href="styles/forms.css" />
   <link rel="stylesheet" href="styles/admin.css" />
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -44,7 +41,8 @@
     input[type="text"],
     input[type="url"],
     input[type="file"],
-    textarea {
+    textarea,
+    select {
       padding: 12px;
       margin-bottom: 15px;
       border-radius: 8px;
@@ -121,10 +119,10 @@
     <h3>Update Class Info</h3>
     <form id="classInfoForm">
       <label for="classSchedule">Class Schedule (use bullet points or line breaks):</label>
-      <textarea id="classSchedule" placeholder="• Day: Saturdays (closed during school holidays)&#10;• Time: 2:30 PM – 4:30 PM&#10;• Location: TafeSA Regency Park, 137 Days Road, Regency Park, South Australia 5010"></textarea>
+      <textarea id="classSchedule" placeholder="• Day: Saturdays (closed during school holidays)\n• Time: 2:30 PM – 4:30 PM\n• Location: TafeSA Regency Park, 137 Days Road, Regency Park, South Australia 5010"></textarea>
 
-      <label for="locationPhoto">Upload New Location Photo:</label>
-      <input type="file" id="locationPhoto" accept="image/*" />
+      <label for="locationLink">Google Drive Link for Location Map:</label>
+      <input type="url" id="classMapUrl" value="https://drive.google.com/uc?id=1m1JzxLzbFGjM1BKOdqvtgk7ZrFzMmp0t" required />
 
       <button type="submit">Save Class Info</button>
     </form>
@@ -132,142 +130,99 @@
 
     <hr />
 
+    <!-- Update Team Info -->
+    <h3>Update Team Info</h3>
+    <form id="teamInfoForm">
+      <label for="managementTeam">Management Team (one per line):</label>
+      <textarea id="managementTeam" placeholder="Name – Role"></textarea>
+
+      <label for="teachingTeam">Teaching Team (one per line):</label>
+      <textarea id="teachingTeam" placeholder="Name"></textarea>
+
+      <button type="submit">Save Team Info</button>
+    </form>
+    <p id="teamInfoMessage" class="message"></p>
+
+    <hr />
+
     <!-- Update Team Photo -->
     <h3>Update Team Photo</h3>
     <form id="teamPhotoForm">
-      <label for="teamPhotoUpload">Upload New Team Photo:</label>
-      <input type="file" id="teamPhotoUpload" accept="image/*" />
+      <label for="teamPhotoUrl">Paste Google Drive Link:</label>
+      <input type="url" id="teamPhotoUrl" value="https://drive.google.com/uc?id=1IrmwTXxcz1B9UY6w9QlsWq9gUqMmpv2W" required />
       <button type="submit">Save Team Photo</button>
     </form>
     <p id="teamPhotoMessage" class="message"></p>
 
     <hr />
 
-    <!-- Update Gallery Photos -->
-    <h3>Update Gallery Photos</h3>
-    <form id="galleryPhotosForm">
-      <label for="galleryUpload1">Gallery Photo 1:</label>
-      <input type="file" id="galleryUpload1" accept="image/*" />
-
-      <label for="galleryUpload2">Gallery Photo 2:</label>
-      <input type="file" id="galleryUpload2" accept="image/*" />
-
-      <label for="galleryUpload3">Gallery Photo 3:</label>
-      <input type="file" id="galleryUpload3" accept="image/*" />
-
-      <label for="galleryUpload4">Gallery Photo 4:</label>
-      <input type="file" id="galleryUpload4" accept="image/*" />
-
-      <button type="submit">Save Gallery Photos</button>
+    <!-- Update Gallery Photos via Google Drive -->
+    <!-- Update Gallery Photos via Google Drive -->
+<h3>Update Gallery Photos</h3>
+<form id="galleryForm">
+  <input type="url" id="galleryUrl1" value="https://drive.google.com/uc?id=1Jd3gpxW2qcwHVw5JQ-WldpvPXgk6CVz-" required />
+  <input type="url" id="galleryUrl2" value="https://drive.google.com/uc?id=1kHP4uIjQkAzu7GcYZp8SgTT50-0-lCNr" required />
+  <input type="url" id="galleryUrl3" value="https://drive.google.com/uc?id=1AEhFUF2npkNpNc1Dd5HyVBLJ3YLRIN3i" required />
+  <input type="url" id="galleryUrl4" value="https://drive.google.com/uc?id=1w2jJs2-O0uB5sxGos7AJJCHXwbnF_cvp" required />
+  <button type="submit">Save Gallery Photos</button>
     </form>
     <p id="galleryMessage" class="message"></p>
+
+    <hr />
+
+    <!-- Manage Users -->
+    <h3>Manage Users</h3>
+    <form id="addUserForm">
+      <input type="text" id="firstName" placeholder="First Name" required />
+      <input type="text" id="lastName" placeholder="Last Name" required />
+      <input type="text" id="preferredName" placeholder="Preferred Name (optional)" />
+      <input type="email" id="userEmail" placeholder="Email" required />
+      <input type="text" id="userPassword" placeholder="Password" required />
+      <select id="userRole" required>
+        <option value="student">Student</option>
+        <option value="teacher">Teacher</option>
+        <option value="admin">Admin</option>
+      </select>
+     <input type="text" id="userLevel" placeholder="Level (e.g., Level 1)" />
+     <button type="submit">Add User</button>
+    </form>
+    <p id="userAddMessage" class="message"></p>
+
+<hr />
+
+<!-- 🔁 Upload Resources -->
+<h3>Update Resource Links</h3>
+<form id="resourceLinksForm">
+  <label for="level1">Level 1 Resource Link:</label>
+  <input type="url" id="level1" placeholder="Paste Google Drive link for Level 1" />
+
+  <label for="level2">Level 2 Resource Link:</label>
+  <input type="url" id="level2" placeholder="Paste Google Drive link for Level 2" />
+
+  <label for="level3">Level 3 Resource Link:</label>
+  <input type="url" id="level3" placeholder="Paste Google Drive link for Level 3" />
+
+  <label for="level4">Level 4 Resource Link:</label>
+  <input type="url" id="level4" placeholder="Paste Google Drive link for Level 4" />
+
+  <label for="level5">Level 5 Resource Link:</label>
+  <input type="url" id="level5" placeholder="Paste Google Drive link for Level 5" />
+
+  <label for="sace">SACE Resource Link:</label>
+  <input type="url" id="sace" placeholder="Paste Google Drive link for SACE" />
+
+  <label for="teacher">Teacher Resource Link:</label>
+  <input type="url" id="teacher" placeholder="Paste Google Drive link for Teachers" />
+
+  <button type="submit">Update All Resource Links</button>
+</form>
+<p id="resourceMessage" class="message"></p>
+
   </div>
 
- <script>
-  // Reset Password
-  document.getElementById('resetTeacherPasswordForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const email = document.getElementById('teacherEmail').value;
-    const newPassword = document.getElementById('newPassword').value;
-
-    try {
-      const response = await fetch('https://soanchirhi-backend.onrender.com/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, newPassword })
-      });
-
-      const data = await response.json();
-      document.getElementById('resetMessage').textContent = data.message;
-    } catch (err) {
-      document.getElementById('resetMessage').textContent = "Failed to reset password.";
-    }
-  });
-
-  // Update Admission Link
-  document.getElementById('updateAdmissionLinkForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const newLink = document.getElementById('newAdmissionLink').value;
-
-    try {
-      const response = await fetch('https://soanchirhi-backend.onrender.com/update-admission-link', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ newLink })
-      });
-
-      const data = await response.json();
-      document.getElementById('admissionLinkMessage').textContent = data.message;
-    } catch (err) {
-      document.getElementById('admissionLinkMessage').textContent = "Failed to update link.";
-    }
-  });
-
-  // Save Class Info
-  document.getElementById('classInfoForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const scheduleText = document.getElementById('classSchedule').value;
-    localStorage.setItem('classSchedule', scheduleText);
-
-    const file = document.getElementById('locationPhoto').files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        localStorage.setItem('classMap', e.target.result);
-        document.getElementById('classInfoMessage').textContent = 'Class info and photo updated successfully!';
-      };
-      reader.readAsDataURL(file);
-    } else {
-      document.getElementById('classInfoMessage').textContent = 'Class schedule updated successfully.';
-    }
-  });
-
-  // Pre-fill class info
-  document.addEventListener('DOMContentLoaded', function () {
-    const saved = localStorage.getItem('classSchedule');
-    if (saved) {
-      document.getElementById('classSchedule').value = saved;
-    }
-  });
-
-  // Save Team Photo
-  document.getElementById('teamPhotoForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const file = document.getElementById('teamPhotoUpload').files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      localStorage.setItem('teamPhoto', e.target.result);
-      document.getElementById('teamPhotoMessage').textContent = 'Team photo saved successfully.';
-    };
-    reader.readAsDataURL(file);
-  });
-
-  // Save Gallery Photos
-  document.getElementById('galleryPhotosForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    let updated = false;
-
-    for (let i = 1; i <= 4; i++) {
-      const fileInput = document.getElementById(`galleryUpload${i}`);
-      const file = fileInput.files[0];
-      if (file) {
-        const reader = new FileReader();
-        const idx = i;
-        reader.onload = function (e) {
-          localStorage.setItem(`galleryPhoto${idx}`, e.target.result);
-          document.getElementById('galleryMessage').textContent = 'Gallery photos updated successfully.';
-        };
-        reader.readAsDataURL(file);
-        updated = true;
-      }
-    }
-
-    if (!updated) {
-      document.getElementById('galleryMessage').textContent = 'No new gallery images selected.';
-    }
-  });
-</script>
+<!-- Just link the file — DO NOT include JS code here -->
+<script src="scripts/admin_panel.js"></script>
 </body>
 </html>
+
+
