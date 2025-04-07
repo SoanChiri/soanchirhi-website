@@ -1,111 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Level 2 Resources - Soan Chirhi School</title>
-    <link rel="stylesheet" href="styles/main.css"> <!-- Add custom CSS here -->
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f7f9;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Level 2 Resources - Soan Chirhi School</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7f9;
+      margin: 0;
+      padding: 0;
+    }
 
-        header {
-            background-color: #2e3a74;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
+    header {
+      background-color: #2e3a74;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
 
-        header p {
-            margin: 5px 0;
-            font-size: 1.2em;
-        }
+    header p {
+      margin: 5px 0;
+      font-size: 1.2em;
+    }
 
-        .nav-bar {
-            margin-top: 10px;
-        }
+    .nav-bar {
+      margin-top: 10px;
+    }
 
-        .nav-bar a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 1.1em;
-        }
+    .nav-bar a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 1.1em;
+    }
 
-        .nav-bar a:hover {
-            text-decoration: underline;
-        }
+    .nav-bar a:hover {
+      text-decoration: underline;
+    }
 
-        .resource-container {
-            margin: 40px;
-        }
+    .resource-container {
+      margin: 40px;
+    }
 
-        .resource-section {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+    .resource-section {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
 
-        .resource-section h2 {
-            color: #2e3a74;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
+    .resource-section h2 {
+      color: #2e3a74;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
 
-        .resource-section p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
+    .resource-section p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
 
-        .resource-button {
-            display: inline-block;
-            padding: 15px 25px;
-            background-color: #ffcc00;
-            color: white;
-            font-size: 1.2em;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-        }
+    .resource-button {
+      display: inline-block;
+      padding: 15px 25px;
+      background-color: #ffcc00;
+      color: white;
+      font-size: 1.2em;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
 
-        .resource-button:hover {
-            background-color: #e6b800;
-        }
+    .resource-button:hover {
+      background-color: #e6b800;
+    }
 
-        .resource-button:active {
-            background-color: #b38f00;
-        }
-    </style>
+    .resource-button:active {
+      background-color: #b38f00;
+    }
+
+    .error-message {
+      color: red;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <h1>Level 2 Resources</h1>
-        <p>Browse and access materials for Level 2</p>
-        <nav class="nav-bar">
-            <a href="index.html">Home</a>
-            <a href="student_login.html">Logout</a>
-        </nav>
-    </header>
+  <!-- HEADER -->
+  <header>
+    <h1>Level 2 Resources</h1>
+    <p>Browse and access materials for Level 2</p>
+    <nav class="nav-bar">
+      <a href="index.html">Home</a>
+      <a href="student_login.html">Logout</a>
+    </nav>
+  </header>
 
-    <!-- RESOURCE CONTAINER -->
-    <div class="resource-container">
-        <div class="resource-section">
-            <h2>Level 2 Resources</h2>
-            <p>Click the button below to access Level 2 resources:</p>
-            <a href="https://drive.google.com/drive/folders/11n1Yr4HjGVI2omto_op1ZScOIt1W6QCb?usp=sharing" class="resource-button" target="_blank">Access Level 2 Resources</a>
-        </div>
+  <!-- RESOURCE CONTAINER -->
+  <div class="resource-container">
+    <div class="resource-section">
+      <h2>Level 2 Resources</h2>
+      <p>Click the button below to access Level 2 resources:</p>
+      <a id="level2Link" class="resource-button" target="_blank">Loading...</a>
+      <p id="errorMsg" class="error-message"></p>
     </div>
+  </div>
+
+  <!-- SCRIPT TO LOAD DYNAMIC LINK -->
+  <script>
+    const backend = "https://soanchirhi-backend.onrender.com";
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const response = await fetch(`${backend}/resources/level2`);
+        const data = await response.json();
+
+        if (data && data.folderLink) {
+          const link = document.getElementById("level2Link");
+          link.href = data.folderLink;
+          link.textContent = "Open Level 2 Resources";
+        } else {
+          throw new Error("Folder link not found.");
+        }
+      } catch (error) {
+        console.error("Error fetching Level 2 link:", error);
+        document.getElementById("errorMsg").textContent = "Could not load resources. Please try again later.";
+        document.getElementById("level2Link").style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
