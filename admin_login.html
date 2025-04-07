@@ -3,51 +3,192 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Login - Soan Chirhi School</title>
+  <title>Student Login - Soan Chirhi School</title>
+  <link rel="stylesheet" href="styles/forms.css">
+  <link rel="stylesheet" href="styles/student.css">
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles/forms.css"> <!-- shared styles -->
-  <link rel="stylesheet" href="styles/admin.css"> <!-- dedicated admin styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .login-container h2 {
+      color: #2e3a74;
+      margin-bottom: 25px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #ffcc00;
+      color: #2e3a74;
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #e6b800;
+    }
+
+    .message {
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .forgot-password {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .forgot-password a {
+      color: #2e3a74;
+      text-decoration: none;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    .validation-error {
+      color: red;
+      font-size: 13px;
+      text-align: left;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
   <div class="login-container">
-    <h2>Admin Login</h2>
-    <form id="adminLoginForm">
-      <input type="email" id="adminEmail" placeholder="Enter your email" required />
-      <input type="password" id="adminPassword" placeholder="Enter your password" required />
-      <button type="submit">Login</button>
-      <p id="adminLoginMessage"></p>
+    <h2>Student Login</h2>
+    <form id="studentLoginForm" novalidate>
+      <input type="email" id="studentEmail" placeholder="Enter your email" required />
+      <div id="emailError" class="validation-error"></div>
+
+      <input type="password" id="studentPassword" placeholder="Enter your password" required />
+      <div id="passwordError" class="validation-error"></div>
+
+      <button type="submit" class="login-btn">Login</button>
+      <p id="studentLoginMessage" class="message"></p>
+
+      <div class="forgot-password">
+        <a href="admin_login.html">Forgot Password? Contact admin</a>
+      </div>
     </form>
   </div>
 
   <script>
-    document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
+    document.getElementById('studentLoginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      const email = document.getElementById('adminEmail').value;
-      const password = document.getElementById('adminPassword').value;
+      const email = document.getElementById('studentEmail').value.trim();
+      const password = document.getElementById('studentPassword').value.trim();
+
+      const emailError = document.getElementById('emailError');
+      const passwordError = document.getElementById('passwordError');
+      const message = document.getElementById('studentLoginMessage');
+
+      // Reset errors
+      emailError.textContent = "";
+      passwordError.textContent = "";
+      message.textContent = "";
+      message.className = 'message';
+
+      let hasError = false;
+
+      // Validate email
+      if (!email) {
+        emailError.textContent = "Email is required.";
+        hasError = true;
+      } else if (!/\S+@\S+\.\S+/.test(email)) {
+        emailError.textContent = "Invalid email format.";
+        hasError = true;
+      }
+
+      // Validate password
+      if (!password) {
+        passwordError.textContent = "Password is required.";
+        hasError = true;
+      }
+
+      if (hasError) return;
 
       try {
         const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
+          body: JSON.stringify({ email, password, role: 'student' })
         });
 
         const data = await response.json();
 
-        if (data.success && data.role === 'admin') {
-          document.getElementById('adminLoginMessage').textContent = "Login successful! Redirecting...";
-          localStorage.setItem('userEmail', email);
-          setTimeout(() => {
-            window.location.href = "admin_panel.html";
-          }, 1000);
+        if (data.success) {
+          message.textContent = "Login successful! Redirecting...";
+          message.className = 'message success';
+
+          if (data.firstLogin) {
+            localStorage.setItem('userEmail', email);
+            window.location.href = "change_password.html";
+          } else {
+            switch (data.level) {
+              case 'Level 1': window.location.href = "level1_resources.html"; break;
+              case 'Level 2': window.location.href = "level2_resources.html"; break;
+              case 'Level 3': window.location.href = "level3_resources.html"; break;
+              case 'Level 4': window.location.href = "level4_resources.html"; break;
+              case 'Level 5': window.location.href = "level5_resources.html"; break;
+              case 'SACE': window.location.href = "sace_resources.html"; break;
+              default:
+                message.textContent = "Error: Invalid level.";
+                message.className = 'message error';
+            }
+          }
         } else {
-          document.getElementById('adminLoginMessage').textContent = data.message || "Incorrect email or password.";
+          message.textContent = data.message || "Incorrect email or password.";
+          message.className = 'message error';
         }
       } catch (error) {
-        console.error('Login error:', error);
-        document.getElementById('adminLoginMessage').textContent = "Server connection error.";
+        console.error('Fetch error:', error);
+        message.textContent = "Server connection error.";
+        message.className = 'message error';
       }
     });
   </script>
