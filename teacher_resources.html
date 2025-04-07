@@ -1,156 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Resources - Soan Chirhi School</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f7f9;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teacher Resources - Soan Chirhi School</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7f9;
+      margin: 0;
+      padding: 0;
+    }
 
-        header {
-            background-color: #2e3a74;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
+    header {
+      background-color: #2e3a74;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
 
-        header p {
-            margin: 5px 0;
-            font-size: 1.2em;
-        }
+    header p {
+      margin: 5px 0;
+      font-size: 1.2em;
+    }
 
-        .nav-bar {
-            margin-top: 10px;
-        }
+    .nav-bar {
+      margin-top: 10px;
+    }
 
-        .nav-bar a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 1.1em;
-        }
+    .nav-bar a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 1.1em;
+    }
 
-        .nav-bar a:hover {
-            text-decoration: underline;
-        }
+    .nav-bar a:hover {
+      text-decoration: underline;
+    }
 
-        .resource-container {
-            margin: 40px;
-        }
+    .resource-container {
+      margin: 40px;
+    }
 
-        .resource-section {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+    .resource-section {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
 
-        .resource-section h2 {
-            color: #2e3a74;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
+    .resource-section h2 {
+      color: #2e3a74;
+      font-size: 2em;
+      margin-bottom: 15px;
+    }
 
-        .resource-button {
-            display: inline-block;
-            padding: 15px 25px;
-            background-color: #ffcc00;
-            color: white;
-            font-size: 1.2em;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-        }
+    .resource-button {
+      display: inline-block;
+      padding: 15px 25px;
+      background-color: #ffcc00;
+      color: white;
+      font-size: 1.2em;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
 
-        .resource-button:hover {
-            background-color: #e6b800;
-        }
+    .resource-button:hover {
+      background-color: #e6b800;
+    }
 
-        .resource-button:active {
-            background-color: #b38f00;
-        }
-
-        .resource-list a {
-            display: inline-block;
-            padding: 10px 15px;
-            background-color: #2e3a74;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            margin: 10px 0;
-            transition: background-color 0.3s ease;
-        }
-
-        .resource-list a:hover {
-            background-color: #1c265a;
-        }
-    </style>
+    .resource-button:active {
+      background-color: #b38f00;
+    }
+  </style>
 </head>
 <body>
+  <!-- HEADER -->
+  <header>
+    <h1>Teacher Resources</h1>
+    <p>Access all student and teacher resource folders</p>
+    <nav class="nav-bar">
+      <a href="index.html">Home</a>
+      <a href="teacher_login.html">Logout</a>
+    </nav>
+  </header>
 
-    <!-- HEADER -->
-    <header>
-        <h1>Teacher Resources</h1>
-        <p>Access all available teaching materials below.</p>
-        <nav class="nav-bar">
-            <a href="index.html">Home</a>
-            <a href="teacher_login.html">Logout</a>
-        </nav>
-    </header>
+  <!-- RESOURCE CONTAINER -->
+  <div class="resource-container" id="resourceContainer">
+    <!-- Sections will be injected dynamically -->
+  </div>
 
-    <!-- TEACHER RESOURCE CONTAINER -->
-    <div class="resource-container">
-        <div id="teacher-resources" class="resource-section">
-            <h2>All Available Resources</h2>
-            <p>Click the buttons below to access resources:</p>
-            <div id="resourceLinks" class="resource-list">
-                <!-- Resource links will be inserted here dynamically -->
-            </div>
-        </div>
-    </div>
+  <script>
+    window.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const response = await fetch("https://soanchirhi-backend.onrender.com/all-resources");
+        const data = await response.json();
 
-    <script>
-        // Fetch all resources for teachers
-        fetch('https://soanchirhi-backend.onrender.com/all-resources', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token') // Use token for authorization
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            const resourceLinksContainer = document.getElementById('resourceLinks');
-            // Loop through all levels of resources and teacher resources
-            for (const [level, resources] of Object.entries(data)) {
-                const levelTitle = document.createElement('h3');
-                levelTitle.textContent = `${level.charAt(0).toUpperCase() + level.slice(1)} Resources`;
-                resourceLinksContainer.appendChild(levelTitle);
+        const container = document.getElementById("resourceContainer");
 
-                resources.forEach(resource => {
-                    const listItem = document.createElement('a');
-                    listItem.href = resource.url;
-                    listItem.target = "_blank";
-                    listItem.textContent = resource.title;
-                    resourceLinksContainer.appendChild(listItem);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching resources:', error);
+        const capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
+
+        Object.entries(data).forEach(([level, info]) => {
+          if (info.folderUrl) {
+            const section = document.createElement("div");
+            section.className = "resource-section";
+            section.innerHTML = `
+              <h2>${capitalize(level)} Resources</h2>
+              <a href="${info.folderUrl}" class="resource-button" target="_blank">Access ${capitalize(level)} Folder</a>
+            `;
+            container.appendChild(section);
+          }
         });
-    </script>
-
+      } catch (err) {
+        console.error("Error loading resources:", err);
+        document.getElementById("resourceContainer").innerHTML = `
+          <p style="color:red; text-align:center; font-weight:bold;">Error loading resources. Please try again later.</p>
+        `;
+      }
+    });
+  </script>
 </body>
 </html>
