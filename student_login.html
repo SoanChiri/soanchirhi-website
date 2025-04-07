@@ -5,32 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Student Login - Soan Chirhi School</title>
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles/forms.css"> <!-- optional shared styles -->
-  <link rel="stylesheet" href="styles/student.css">
+  <link rel="stylesheet" href="styles/forms.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #eef3f8;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4ff;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: 100vh;
       margin: 0;
     }
 
     .login-container {
       background-color: #ffffff;
       padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      text-align: center;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 400px;
+      text-align: center;
     }
 
-    .login-container h2 {
-      color: #2e3a74;
+    h2 {
+      color: #2a3f7c;
       margin-bottom: 25px;
     }
 
@@ -38,27 +36,27 @@
     input[type="password"] {
       width: 100%;
       padding: 12px;
-      margin-bottom: 20px;
-      border-radius: 8px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
+      border-radius: 8px;
       font-size: 16px;
     }
 
-    .login-btn {
+    button {
       width: 100%;
       padding: 12px;
-      background-color: #2e3a74;
+      background-color: #2a3f7c;
       color: white;
-      font-weight: bold;
-      font-size: 16px;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
-    .login-btn:hover {
-      background-color: #1c265a;
+    button:hover {
+      background-color: #1d2d5c;
     }
 
     .message {
@@ -68,12 +66,24 @@
 
     .error {
       color: red;
-      font-weight: bold;
     }
 
     .success {
       color: green;
-      font-weight: bold;
+    }
+
+    .forgot-link {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .forgot-link a {
+      color: #2a3f7c;
+      text-decoration: none;
+    }
+
+    .forgot-link a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -83,72 +93,79 @@
     <form id="studentLoginForm">
       <input type="email" id="studentEmail" placeholder="Enter your email" required />
       <input type="password" id="studentPassword" placeholder="Enter your password" required />
-      <button type="submit" class="login-btn">Login</button>
+      <button type="submit">Login</button>
       <p id="studentLoginMessage" class="message"></p>
     </form>
+    <div class="forgot-link">
+      <a href="forgot_password.html">Forgot Password?</a>
+    </div>
   </div>
 
   <script>
-    document.getElementById('studentLoginForm').addEventListener('submit', async function(e) {
+    document.getElementById("studentLoginForm").addEventListener("submit", async function(e) {
       e.preventDefault();
 
-      const email = document.getElementById('studentEmail').value;
-      const password = document.getElementById('studentPassword').value;
+      const email = document.getElementById("studentEmail").value.trim();
+      const password = document.getElementById("studentPassword").value.trim();
+      const messageEl = document.getElementById("studentLoginMessage");
+
+      messageEl.textContent = "";
+      messageEl.className = "message";
+
+      if (!email || !password) {
+        messageEl.textContent = "Both email and password are required.";
+        messageEl.classList.add("error");
+        return;
+      }
+
+      const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      if (!emailPattern.test(email)) {
+        messageEl.textContent = "Please enter a valid email address.";
+        messageEl.classList.add("error");
+        return;
+      }
 
       try {
         const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password, role: 'student' })
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password, role: "student" })
         });
 
         const data = await response.json();
 
-        // Clear previous messages
-        document.getElementById('studentLoginMessage').textContent = "";
-
         if (data.success) {
-          document.getElementById('studentLoginMessage').textContent = "Login successful! Redirecting...";
-          document.getElementById('studentLoginMessage').className = 'message success';
+          messageEl.textContent = "Login successful! Redirecting...";
+          messageEl.classList.add("success");
 
           if (data.firstLogin) {
-            localStorage.setItem('userEmail', email);
+            localStorage.setItem("userEmail", email);
             window.location.href = "change_password.html";
           } else {
-            // Redirect to the respective resources page based on the student's level
-            switch (data.level) {
-              case 'Level 1':
-                window.location.href = "level1_resources.html";
-                break;
-              case 'Level 2':
-                window.location.href = "level2_resources.html";
-                break;
-              case 'Level 3':
-                window.location.href = "level3_resources.html";
-                break;
-              case 'Level 4':
-                window.location.href = "level4_resources.html";
-                break;
-              case 'Level 5':
-                window.location.href = "level5_resources.html";
-                break;
-              case 'SACE':
-                window.location.href = "sace_resources.html";
-                break;
-              default:
-                document.getElementById('studentLoginMessage').textContent = "Error: Invalid level.";
-                document.getElementById('studentLoginMessage').className = 'message error';
-                break;
+            const levelPage = {
+              "Level 1": "level1_resources.html",
+              "Level 2": "level2_resources.html",
+              "Level 3": "level3_resources.html",
+              "Level 4": "level4_resources.html",
+              "Level 5": "level5_resources.html",
+              "SACE": "sace_resources.html"
+            }[data.level];
+
+            if (levelPage) {
+              window.location.href = levelPage;
+            } else {
+              messageEl.textContent = "Invalid level assigned to user.";
+              messageEl.classList.add("error");
             }
           }
         } else {
-          document.getElementById('studentLoginMessage').textContent = data.message || "Incorrect email or password.";
-          document.getElementById('studentLoginMessage').className = 'message error';
+          messageEl.textContent = data.message || "Incorrect email or password.";
+          messageEl.classList.add("error");
         }
-      } catch (error) {
-        console.error('Fetch error:', error);
-        document.getElementById('studentLoginMessage').textContent = "Server connection error.";
-        document.getElementById('studentLoginMessage').className = 'message error';
+      } catch (err) {
+        console.error("Login error:", err);
+        messageEl.textContent = "Server connection error.";
+        messageEl.classList.add("error");
       }
     });
   </script>
