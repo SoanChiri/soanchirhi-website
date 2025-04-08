@@ -138,25 +138,20 @@
           messageEl.textContent = "Login successful! Redirecting...";
           messageEl.classList.add("success");
 
-          if (data.firstLogin) {
-            localStorage.setItem("userEmail", email);
-            window.location.href = "change_password.html";
-          } else {
-            const levelPage = {
-              "Level 1": "level1_resources.html",
-              "Level 2": "level2_resources.html",
-              "Level 3": "level3_resources.html",
-              "Level 4": "level4_resources.html",
-              "Level 5": "level5_resources.html",
-              "SACE": "sace_resources.html"
-            }[data.level];
+          const levelPage = {
+            "Level 1": "level1_resources.html",
+            "Level 2": "level2_resources.html",
+            "Level 3": "level3_resources.html",
+            "Level 4": "level4_resources.html",
+            "Level 5": "level5_resources.html",
+            "SACE": "sace_resources.html"
+          }[data.level];
 
-            if (levelPage) {
-              window.location.href = levelPage;
-            } else {
-              messageEl.textContent = "Invalid level assigned to user.";
-              messageEl.classList.add("error");
-            }
+          if (levelPage) {
+            setTimeout(() => window.location.href = levelPage, 500);
+          } else {
+            messageEl.textContent = "Invalid level assigned to user.";
+            messageEl.classList.add("error");
           }
         } else {
           messageEl.textContent = data.message || "Incorrect email or password.";
