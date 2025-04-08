@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SACE Resources - Soan Chirhi School</title>
-  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/main.css">
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -12,35 +12,43 @@
       margin: 0;
       padding: 0;
     }
+
     header {
       background-color: #2e3a74;
       color: white;
       text-align: center;
       padding: 20px;
     }
+
     header h1 {
       margin: 0;
       font-size: 2.5em;
     }
+
     header p {
       margin: 5px 0;
       font-size: 1.2em;
     }
+
     .nav-bar {
       margin-top: 10px;
     }
+
     .nav-bar a {
       color: #fff;
       margin: 0 15px;
       text-decoration: none;
       font-size: 1.1em;
     }
+
     .nav-bar a:hover {
       text-decoration: underline;
     }
+
     .resource-container {
       margin: 40px;
     }
+
     .resource-section {
       background-color: #ffffff;
       padding: 20px;
@@ -48,32 +56,38 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
+
     .resource-section h2 {
       color: #2e3a74;
       font-size: 2em;
       margin-bottom: 20px;
     }
-    .resource-section p {
-      font-size: 1.2em;
+
+    .level-banner {
+      background-color: #ffcc00;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5em;
       margin-bottom: 20px;
+      border-radius: 10px;
+      color: white;
     }
+
     .resource-button {
       display: inline-block;
-      padding: 15px 25px;
-      background-color: #ffcc00;
+      padding: 15px 30px;
+      background-color: #2e3a74;
       color: white;
-      font-size: 1.2em;
-      text-align: center;
       text-decoration: none;
+      font-size: 1.2em;
       border-radius: 8px;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s;
     }
+
     .resource-button:hover {
-      background-color: #e6b800;
+      background-color: #1c265a;
     }
-    .resource-button:active {
-      background-color: #b38f00;
-    }
+
     .error-message {
       color: red;
       font-weight: bold;
@@ -85,7 +99,7 @@
   <!-- HEADER -->
   <header>
     <h1>SACE Resources</h1>
-    <p>Browse and access materials for SACE level</p>
+    <p>Senior Secondary Level Access</p>
     <nav class="nav-bar">
       <a href="index.html">Home</a>
       <a href="student_login.html">Logout</a>
@@ -95,31 +109,48 @@
   <!-- RESOURCE CONTAINER -->
   <div class="resource-container">
     <div class="resource-section">
-      <h2>SACE Resources</h2>
-      <p>Click the button below to access SACE resources:</p>
-      <a id="resourceLink" class="resource-button" href="#" target="_blank">Loading...</a>
+      <h2>Your SACE Resources</h2>
+      <div id="levelBanner" class="level-banner">SACE Student Portal</div>
+      <a id="saceLink" class="resource-button" target="_blank">Loading...</a>
       <p id="errorMsg" class="error-message"></p>
     </div>
   </div>
 
+  <!-- SCRIPT TO LOAD RESOURCE -->
   <script>
+    const backend = "https://soanchirhi-backend.onrender.com";
+
     window.addEventListener("DOMContentLoaded", async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        document.getElementById("errorMsg").textContent = "Unauthorized. Please log in.";
+        document.getElementById("saceLink").style.display = "none";
+        return;
+      }
+
       try {
-        const response = await fetch("https://soanchirhi-backend.onrender.com/resources/sace");
+        const response = await fetch(`${backend}/resources/sace`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) throw new Error("Access denied or resource not found.");
+
         const data = await response.json();
 
-        if (data && data.folderLink) {
-          const btn = document.getElementById("resourceLink");
-          btn.href = data.folderLink;
-          btn.textContent = "Access SACE Resources";
+        if (Array.isArray(data) && data[0]?.url) {
+          const link = document.getElementById("saceLink");
+          link.href = data[0].url;
+          link.textContent = data[0].title || "Access SACE Resources";
         } else {
-          document.getElementById("errorMsg").textContent = "Resource link not found.";
-          document.getElementById("resourceLink").style.display = "none";
+          throw new Error("Invalid resource format.");
         }
       } catch (error) {
-        document.getElementById("errorMsg").textContent = "Error loading resources.";
-        document.getElementById("resourceLink").style.display = "none";
-        console.error("Error:", error);
+        document.getElementById("errorMsg").textContent = "Failed to load resources. Please try again later.";
+        document.getElementById("saceLink").style.display = "none";
+        console.error("Error loading SACE resources:", error);
       }
     });
   </script>
