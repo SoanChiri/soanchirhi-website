@@ -117,27 +117,43 @@
   </div>
 
   <!-- SCRIPT TO LOAD RESOURCE -->
-  <script>
-    const backend = "https://soanchirhi-backend.onrender.com";
+ <script>
+  const backend = "https://soanchirhi-backend.onrender.com";
 
-    window.addEventListener("DOMContentLoaded", async () => {
-      try {
-        const response = await fetch(`${backend}/resources/level4`);
-        const data = await response.json();
+  window.addEventListener("DOMContentLoaded", async () => {
+    const token = localStorage.getItem("token");
 
-        if (data && data.folderLink) {
-          const link = document.getElementById("level4Link");
-          link.href = data.folderLink;
-          link.textContent = "Access Level 4 Resources";
-        } else {
-          throw new Error("Folder link not found.");
+    if (!token) {
+      document.getElementById("errorMsg").textContent = "Unauthorized. Please log in.";
+      document.getElementById("level4Link").style.display = "none";
+      return;
+    }
+
+    try {
+      const response = await fetch(`${backend}/resources/level4`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
         }
-      } catch (error) {
-        document.getElementById("errorMsg").textContent = "Failed to load resources. Please try again later.";
-        document.getElementById("level4Link").style.display = "none";
-        console.error("Error loading Level 4 resources:", error);
+      });
+
+      if (!response.ok) throw new Error("Access denied or resource not found.");
+
+      const data = await response.json();
+
+      if (Array.isArray(data) && data[0]?.url) {
+        const link = document.getElementById("level4Link");
+        link.href = data[0].url;
+        link.textContent = data[0].title || "Access Level 4 Resources";
+      } else {
+        throw new Error("Invalid resource format.");
       }
-    });
-  </script>
+    } catch (error) {
+      document.getElementById("errorMsg").textContent = "Failed to load resources. Please try again later.";
+      document.getElementById("level4Link").style.display = "none";
+      console.error("Error loading Level 4 resources:", error);
+    }
+  });
+</script>
+
 </body>
 </html>
