@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Level 3 Resources - Soan Chirhi School</title>
-  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/main.css">
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -63,29 +63,29 @@
       margin-bottom: 20px;
     }
 
-    .resource-section p {
-      font-size: 1.2em;
+    .level-banner {
+      background-color: #ffcc00;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5em;
       margin-bottom: 20px;
+      border-radius: 10px;
+      color: white;
     }
 
     .resource-button {
       display: inline-block;
-      padding: 15px 25px;
-      background-color: #ffcc00;
+      padding: 15px 30px;
+      background-color: #2e3a74;
       color: white;
-      font-size: 1.2em;
-      text-align: center;
       text-decoration: none;
+      font-size: 1.2em;
       border-radius: 8px;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s;
     }
 
     .resource-button:hover {
-      background-color: #e6b800;
-    }
-
-    .resource-button:active {
-      background-color: #b38f00;
+      background-color: #1c265a;
     }
 
     .error-message {
@@ -109,33 +109,48 @@
   <!-- RESOURCE CONTAINER -->
   <div class="resource-container">
     <div class="resource-section">
-      <h2>Level 3 Resources</h2>
-      <p>Click the button below to access Level 3 resources:</p>
+      <h2>Your Level 3 Resources</h2>
+      <div id="levelBanner" class="level-banner">Level 3 Student Portal</div>
       <a id="level3Link" class="resource-button" target="_blank">Loading...</a>
       <p id="errorMsg" class="error-message"></p>
     </div>
   </div>
 
-  <!-- SCRIPT TO LOAD DYNAMIC LINK -->
+  <!-- SCRIPT TO LOAD RESOURCE -->
   <script>
     const backend = "https://soanchirhi-backend.onrender.com";
 
     window.addEventListener("DOMContentLoaded", async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        document.getElementById("errorMsg").textContent = "Unauthorized. Please log in.";
+        document.getElementById("level3Link").style.display = "none";
+        return;
+      }
+
       try {
-        const response = await fetch(`${backend}/resources/level3`);
+        const response = await fetch(`${backend}/resources/level3`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) throw new Error("Access denied or resource not found.");
+
         const data = await response.json();
 
-        if (data && data.folderLink) {
+        if (Array.isArray(data) && data[0]?.url) {
           const link = document.getElementById("level3Link");
-          link.href = data.folderLink;
-          link.textContent = "Open Level 3 Resources";
+          link.href = data[0].url;
+          link.textContent = data[0].title || "Access Level 3 Resources";
         } else {
-          throw new Error("Folder link not found.");
+          throw new Error("Invalid resource format.");
         }
       } catch (error) {
-        console.error("Error fetching Level 3 link:", error);
-        document.getElementById("errorMsg").textContent = "Could not load resources. Please try again later.";
+        document.getElementById("errorMsg").textContent = "Failed to load resources. Please try again later.";
         document.getElementById("level3Link").style.display = "none";
+        console.error("Error loading Level 3 resources:", error);
       }
     });
   </script>
