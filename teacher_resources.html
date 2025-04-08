@@ -82,6 +82,13 @@
     .resource-button:active {
       background-color: #b38f00;
     }
+
+    .error-message {
+      color: red;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -99,33 +106,56 @@
   <div class="resource-container" id="resourceContainer">
     <!-- Sections will be injected dynamically -->
   </div>
+  <p id="errorMsg" class="error-message"></p>
 
+  <!-- SCRIPT -->
   <script>
-    window.addEventListener("DOMContentLoaded", async () => {
-      try {
-        const response = await fetch("https://soanchirhi-backend.onrender.com/all-resources");
-        const data = await response.json();
+    const backend = "https://soanchirhi-backend.onrender.com";
 
-        const container = document.getElementById("resourceContainer");
+    window.addEventListener("DOMContentLoaded", async () => {
+      const token = localStorage.getItem("token");
+      const container = document.getElementById("resourceContainer");
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (!token) {
+        errorMsg.textContent = "Unauthorized. Please log in as a teacher.";
+        return;
+      }
+
+      try {
+        const response = await fetch(`${backend}/all-resources`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) throw new Error("Access denied or resource error.");
+
+        const data = await response.json();
 
         const capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 
-        Object.entries(data).forEach(([level, info]) => {
-          if (info.folderUrl) {
+        Object.entries(data).forEach(([key, resources]) => {
+          if (Array.isArray(resources)) {
             const section = document.createElement("div");
             section.className = "resource-section";
-            section.innerHTML = `
-              <h2>${capitalize(level)} Resources</h2>
-              <a href="${info.folderUrl}" class="resource-button" target="_blank">Access ${capitalize(level)} Folder</a>
-            `;
+            section.innerHTML = `<h2>${capitalize(key)} Resources</h2>`;
+            
+            resources.forEach(resource => {
+              const btn = document.createElement("a");
+              btn.className = "resource-button";
+              btn.href = resource.url;
+              btn.textContent = resource.title;
+              btn.target = "_blank";
+              section.appendChild(btn);
+            });
+
             container.appendChild(section);
           }
         });
-      } catch (err) {
-        console.error("Error loading resources:", err);
-        document.getElementById("resourceContainer").innerHTML = `
-          <p style="color:red; text-align:center; font-weight:bold;">Error loading resources. Please try again later.</p>
-        `;
+      } catch (error) {
+        console.error("Error loading resources:", error);
+        errorMsg.textContent = "Failed to load resources. Please try again later.";
       }
     });
   </script>
