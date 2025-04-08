@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Level 1 Resources - Soan Chirhi School</title>
   <link rel="stylesheet" href="styles/main.css">
   <style>
@@ -54,6 +54,7 @@
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
 
     .resource-section h2 {
@@ -62,34 +63,35 @@
       margin-bottom: 20px;
     }
 
-    .resource-section p {
-      font-size: 1.2em;
+    .level-banner {
+      background-color: #ffcc00;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5em;
       margin-bottom: 20px;
+      border-radius: 10px;
+      color: white;
     }
 
     .resource-button {
       display: inline-block;
-      padding: 15px 25px;
-      background-color: #ffcc00;
+      padding: 15px 30px;
+      background-color: #2e3a74;
       color: white;
-      font-size: 1.2em;
-      text-align: center;
       text-decoration: none;
+      font-size: 1.2em;
       border-radius: 8px;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s;
     }
 
     .resource-button:hover {
-      background-color: #e6b800;
-    }
-
-    .resource-button:active {
-      background-color: #b38f00;
+      background-color: #1c265a;
     }
 
     .error-message {
       color: red;
       font-weight: bold;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -107,33 +109,48 @@
   <!-- RESOURCE CONTAINER -->
   <div class="resource-container">
     <div class="resource-section">
-      <h2>Level 1 Resources</h2>
-      <p>Click the button below to access Level 1 resources:</p>
+      <h2>Your Level 1 Resources</h2>
+      <div id="levelBanner" class="level-banner">Level 1 Student Portal</div>
       <a id="level1Link" class="resource-button" target="_blank">Loading...</a>
       <p id="errorMsg" class="error-message"></p>
     </div>
   </div>
 
-  <!-- SCRIPT TO LOAD DYNAMIC LINK -->
+  <!-- SCRIPT TO LOAD RESOURCE -->
   <script>
     const backend = "https://soanchirhi-backend.onrender.com";
 
     window.addEventListener("DOMContentLoaded", async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        document.getElementById("errorMsg").textContent = "Unauthorized. Please log in.";
+        document.getElementById("level1Link").style.display = "none";
+        return;
+      }
+
       try {
-        const response = await fetch(`${backend}/resources/level1`);
+        const response = await fetch(`${backend}/resources/level1`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) throw new Error("Access denied or resource not found.");
+
         const data = await response.json();
 
-        if (data && data.folderLink) {
+        if (Array.isArray(data) && data[0]?.url) {
           const link = document.getElementById("level1Link");
-          link.href = data.folderLink;
-          link.textContent = "Open Level 1 Resources";
+          link.href = data[0].url;
+          link.textContent = data[0].title || "Access Level 1 Resources";
         } else {
-          throw new Error("Folder link not found.");
+          throw new Error("Invalid resource format.");
         }
       } catch (error) {
-        console.error("Error fetching Level 1 link:", error);
-        document.getElementById("errorMsg").textContent = "Could not load resources. Please try again later.";
+        document.getElementById("errorMsg").textContent = "Failed to load resources. Please try again later.";
         document.getElementById("level1Link").style.display = "none";
+        console.error("Error loading Level 1 resources:", error);
       }
     });
   </script>
