@@ -100,69 +100,74 @@
       <a href="forgot_password.html">Forgot Password?</a>
     </div>
   </div>
+<script>
+  document.getElementById("studentLoginForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-  <script>
-    document.getElementById("studentLoginForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
+    const email = document.getElementById("studentEmail").value.trim();
+    const password = document.getElementById("studentPassword").value.trim();
+    const messageEl = document.getElementById("studentLoginMessage");
 
-      const email = document.getElementById("studentEmail").value.trim();
-      const password = document.getElementById("studentPassword").value.trim();
-      const messageEl = document.getElementById("studentLoginMessage");
+    messageEl.textContent = "";
+    messageEl.className = "message";
 
-      messageEl.textContent = "";
-      messageEl.className = "message";
+    if (!email || !password) {
+      messageEl.textContent = "Both email and password are required.";
+      messageEl.classList.add("error");
+      return;
+    }
 
-      if (!email || !password) {
-        messageEl.textContent = "Both email and password are required.";
-        messageEl.classList.add("error");
-        return;
-      }
+    const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    if (!emailPattern.test(email)) {
+      messageEl.textContent = "Please enter a valid email address.";
+      messageEl.classList.add("error");
+      return;
+    }
 
-      const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-      if (!emailPattern.test(email)) {
-        messageEl.textContent = "Please enter a valid email address.";
-        messageEl.classList.add("error");
-        return;
-      }
+    try {
+      const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
 
-      try {
-        const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, role: "student" })
-        });
+      const data = await response.json();
 
-        const data = await response.json();
+      if (data.success) {
+        // ✅ Save token & level
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("studentLevel", data.level);
 
-        if (data.success) {
-          messageEl.textContent = "Login successful! Redirecting...";
-          messageEl.classList.add("success");
+        messageEl.textContent = "Login successful! Redirecting...";
+        messageEl.classList.add("success");
 
-          const levelPage = {
-            "Level 1": "level1_resources.html",
-            "Level 2": "level2_resources.html",
-            "Level 3": "level3_resources.html",
-            "Level 4": "level4_resources.html",
-            "Level 5": "level5_resources.html",
-            "SACE": "sace_resources.html"
-          }[data.level];
+        // ✅ Redirect based on level
+        const levelPage = {
+          "Level 1": "level1_resources.html",
+          "Level 2": "level2_resources.html",
+          "Level 3": "level3_resources.html",
+          "Level 4": "level4_resources.html",
+          "Level 5": "level5_resources.html",
+          "SACE": "sace_resources.html"
+        }[data.level];
 
-          if (levelPage) {
-            setTimeout(() => window.location.href = levelPage, 500);
-          } else {
-            messageEl.textContent = "Invalid level assigned to user.";
-            messageEl.classList.add("error");
-          }
+        if (levelPage) {
+          setTimeout(() => window.location.href = levelPage, 800);
         } else {
-          messageEl.textContent = data.message || "Incorrect email or password.";
+          messageEl.textContent = "Invalid level assigned to user.";
           messageEl.classList.add("error");
         }
-      } catch (err) {
-        console.error("Login error:", err);
-        messageEl.textContent = "Server connection error.";
+      } else {
+        messageEl.textContent = data.message || "Incorrect email or password.";
         messageEl.classList.add("error");
       }
-    });
-  </script>
+    } catch (err) {
+      console.error("Login error:", err);
+      messageEl.textContent = "Server connection error.";
+      messageEl.classList.add("error");
+    }
+  });
+</script>
+
 </body>
 </html>
