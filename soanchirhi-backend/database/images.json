@@ -1,0 +1,12 @@
+{
+  "gallery": [
+    "https://drive.google.com/uc?export=view&id=IMAGE_ID_1",
+    "https://drive.google.com/uc?export=view&id=IMAGE_ID_2"
+  ],
+  "teamPhotos": [
+    "https://drive.google.com/uc?export=view&id=TEAM_IMAGE_ID"
+  ],
+  "classMap": [
+    "https://drive.google.com/uc?export=view&id=MAP_IMAGE_ID"
+  ]
+}
