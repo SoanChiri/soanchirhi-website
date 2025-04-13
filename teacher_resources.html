@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -157,16 +158,20 @@
 
         const data = await response.json();
 
-        if (data.success) {
-          message.textContent = "Login successful! Redirecting...";
-          message.className = 'message success';
+      if (data.success) {
+  message.textContent = "Login successful! Redirecting...";
+  message.className = 'message success';
 
-          // ✅ Store token and role in localStorage
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("userRole", data.role);
-          localStorage.setItem("userLevel", data.level || "teacher");
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("userRole", data.role);
 
-          window.location.href = "teacher_resources.html";
+  // Optional: only set userLevel for students
+  if (data.role === "student" && data.level) {
+    localStorage.setItem("userLevel", data.level);
+  }
+
+  window.location.href = "teacher_resources.html";
+
         } else {
           message.textContent = data.message || "Incorrect email or password.";
           message.className = 'message error';
