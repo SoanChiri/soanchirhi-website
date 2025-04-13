@@ -1,187 +1,84 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Teacher Login - Soan Chirhi School</title>
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles/forms.css">
-  <link rel="stylesheet" href="styles/teacher.css">
+  <title>Teacher Resources - Soan Chirhi School</title>
+  <link rel="stylesheet" href="styles/resources.css" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #eef3f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .login-container {
-      background: white;
+      background-color: #f7f9fc;
       padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 420px;
-      text-align: center;
     }
 
     h2 {
       color: #2e3a74;
-      margin-bottom: 25px;
+      text-align: center;
     }
 
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
+    #resourceLinks a {
+      display: block;
+      margin: 10px auto;
+      padding: 12px 20px;
+      background: #2e3a74;
+      color: white;
       border-radius: 8px;
-      font-size: 16px;
-    }
-
-    .login-btn {
-      width: 100%;
-      padding: 12px;
-      background-color: #ffcc00;
-      color: #2e3a74;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .login-btn:hover {
-      background-color: #e6b800;
-    }
-
-    .message {
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    .error {
-      color: red;
-    }
-
-    .success {
-      color: green;
-    }
-
-    .forgot-password {
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .forgot-password a {
-      color: #2e3a74;
+      width: fit-content;
       text-decoration: none;
+      transition: background 0.3s ease;
     }
 
-    .forgot-password a:hover {
-      text-decoration: underline;
+    #resourceLinks a:hover {
+      background: #1f2b5c;
     }
 
-    .validation-error {
+    #errorMessage {
       color: red;
-      font-size: 13px;
-      text-align: left;
-      margin-top: -10px;
-      margin-bottom: 10px;
+      text-align: center;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Teacher Login</h2>
-    <form id="teacherLoginForm" novalidate>
-      <input type="email" id="teacherEmail" placeholder="Enter your email" required />
-      <div id="emailError" class="validation-error"></div>
-
-      <input type="password" id="teacherPassword" placeholder="Enter your password" required />
-      <div id="passwordError" class="validation-error"></div>
-
-      <button type="submit" class="login-btn">Login</button>
-      <p id="teacherLoginMessage" class="message"></p>
-
-      <div class="forgot-password">
-        <a href="admin_login.html">Forgot Password? Contact Admin</a>
-      </div>
-    </form>
-  </div>
+  <h2>Welcome to Teacher Resources</h2>
+  <div id="resourceLinks"></div>
+  <p id="errorMessage"></p>
 
   <script>
-    document.getElementById('teacherLoginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("userRole");
 
-      const email = document.getElementById('teacherEmail').value.trim();
-      const password = document.getElementById('teacherPassword').value.trim();
-      const message = document.getElementById('teacherLoginMessage');
-      const emailError = document.getElementById('emailError');
-      const passwordError = document.getElementById('passwordError');
-
-      emailError.textContent = "";
-      passwordError.textContent = "";
-      message.textContent = "";
-      message.className = "message";
-
-      let hasError = false;
-
-      if (!email) {
-        emailError.textContent = "Email is required.";
-        hasError = true;
-      } else if (!/\S+@\S+\.\S+/.test(email)) {
-        emailError.textContent = "Invalid email format.";
-        hasError = true;
-      }
-
-      if (!password) {
-        passwordError.textContent = "Password is required.";
-        hasError = true;
-      }
-
-      if (hasError) return;
-
-      try {
-        const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password, role: 'teacher' })
-        });
-
-        const data = await response.json();
-
-      if (data.success) {
-  message.textContent = "Login successful! Redirecting...";
-  message.className = 'message success';
-
-  localStorage.setItem("token", data.token);
-  localStorage.setItem("userRole", data.role);
-
-  // Optional: only set userLevel for students
-  if (data.role === "student" && data.level) {
-    localStorage.setItem("userLevel", data.level);
-  }
-
-  window.location.href = "teacher_resources.html";
-
-        } else {
-          message.textContent = data.message || "Incorrect email or password.";
-          message.className = 'message error';
+    if (!token || (role !== "teacher" && role !== "admin")) {
+      document.getElementById("errorMessage").textContent = "Access denied. Please login as a teacher.";
+      window.location.href = "teacher_login.html";
+    } else {
+      fetch("https://soanchirhi-backend.onrender.com/resources/teacher", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`
         }
-      } catch (error) {
-        console.error('Fetch error:', error);
-        message.textContent = "Server connection error.";
-        message.className = 'message error';
-      }
-    });
+      })
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById("resourceLinks");
+        if (Array.isArray(data)) {
+          data.forEach(resource => {
+            const link = document.createElement("a");
+            link.href = resource.url;
+            link.textContent = resource.title;
+            link.target = "_blank";
+            container.appendChild(link);
+          });
+        } else {
+          document.getElementById("errorMessage").textContent = "No teacher resources found.";
+        }
+      })
+      .catch(error => {
+        console.error("Fetch error:", error);
+        document.getElementById("errorMessage").textContent = "Error fetching resources.";
+      });
+    }
   </script>
 </body>
 </html>
