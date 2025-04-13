@@ -115,62 +115,68 @@
       </div>
     </form>
   </div>
-<script>
-  document.getElementById('teacherLoginForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
 
-    const email = document.getElementById('teacherEmail').value.trim();
-    const password = document.getElementById('teacherPassword').value.trim();
-    const message = document.getElementById('teacherLoginMessage');
-    const emailError = document.getElementById('emailError');
-    const passwordError = document.getElementById('passwordError');
+  <script>
+    document.getElementById('teacherLoginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
 
-    emailError.textContent = "";
-    passwordError.textContent = "";
-    message.textContent = "";
-    message.className = "message";
+      const email = document.getElementById('teacherEmail').value.trim();
+      const password = document.getElementById('teacherPassword').value.trim();
+      const message = document.getElementById('teacherLoginMessage');
+      const emailError = document.getElementById('emailError');
+      const passwordError = document.getElementById('passwordError');
 
-    let hasError = false;
+      emailError.textContent = "";
+      passwordError.textContent = "";
+      message.textContent = "";
+      message.className = "message";
 
-    if (!email) {
-      emailError.textContent = "Email is required.";
-      hasError = true;
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      emailError.textContent = "Invalid email format.";
-      hasError = true;
-    }
+      let hasError = false;
 
-    if (!password) {
-      passwordError.textContent = "Password is required.";
-      hasError = true;
-    }
+      if (!email) {
+        emailError.textContent = "Email is required.";
+        hasError = true;
+      } else if (!/\S+@\S+\.\S+/.test(email)) {
+        emailError.textContent = "Invalid email format.";
+        hasError = true;
+      }
 
-    if (hasError) return;
+      if (!password) {
+        passwordError.textContent = "Password is required.";
+        hasError = true;
+      }
 
-    try {
-      const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, role: 'teacher' })
-      });
+      if (hasError) return;
 
-      const data = await response.json();
+      try {
+        const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, role: 'teacher' })
+        });
 
-      if (data.success) {
-        message.textContent = "Login successful! Redirecting...";
-        message.className = 'message success';
-        window.location.href = "teacher_resources.html";
-      } else {
-        message.textContent = data.message || "Incorrect email or password.";
+        const data = await response.json();
+
+        if (data.success) {
+          message.textContent = "Login successful! Redirecting...";
+          message.className = 'message success';
+
+          // ✅ Store token and role in localStorage
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("userRole", data.role);
+          localStorage.setItem("userLevel", data.level || "teacher");
+
+          window.location.href = "teacher_resources.html";
+        } else {
+          message.textContent = data.message || "Incorrect email or password.";
+          message.className = 'message error';
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        message.textContent = "Server connection error.";
         message.className = 'message error';
       }
-    } catch (error) {
-      console.error('Fetch error:', error);
-      message.textContent = "Server connection error.";
-      message.className = 'message error';
-    }
-  });
-</script>
-
+    });
+  </script>
 </body>
 </html>
