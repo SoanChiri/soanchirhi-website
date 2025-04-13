@@ -62,11 +62,11 @@
       .then(response => response.json())
       .then(data => {
         const container = document.getElementById("resourceLinks");
-        if (Array.isArray(data)) {
-          data.forEach(resource => {
+        if (Array.isArray(data.links)) {
+          data.links.forEach((url, index) => {
             const link = document.createElement("a");
-            link.href = resource.url;
-            link.textContent = resource.title;
+            link.href = url;
+            link.textContent = `Open Resource ${index + 1}`;
             link.target = "_blank";
             container.appendChild(link);
           });
