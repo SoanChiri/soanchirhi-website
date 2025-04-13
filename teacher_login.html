@@ -116,64 +116,67 @@
   </div>
 
   <script>
-    document.getElementById('teacherLoginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
+  document.getElementById('teacherLoginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-      const email = document.getElementById('teacherEmail').value.trim();
-      const password = document.getElementById('teacherPassword').value.trim();
-      const message = document.getElementById('teacherLoginMessage');
-      const emailError = document.getElementById('emailError');
-      const passwordError = document.getElementById('passwordError');
+    const email = document.getElementById('teacherEmail').value.trim();
+    const password = document.getElementById('teacherPassword').value.trim();
+    const message = document.getElementById('teacherLoginMessage');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
 
-      emailError.textContent = "";
-      passwordError.textContent = "";
-      message.textContent = "";
-      message.className = "message";
+    emailError.textContent = "";
+    passwordError.textContent = "";
+    message.textContent = "";
+    message.className = "message";
 
-      let hasError = false;
+    let hasError = false;
 
-      if (!email) {
-        emailError.textContent = "Email is required.";
-        hasError = true;
-      } else if (!/\S+@\S+\.\S+/.test(email)) {
-        emailError.textContent = "Invalid email format.";
-        hasError = true;
-      }
+    if (!email) {
+      emailError.textContent = "Email is required.";
+      hasError = true;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      emailError.textContent = "Invalid email format.";
+      hasError = true;
+    }
 
-      if (!password) {
-        passwordError.textContent = "Password is required.";
-        hasError = true;
-      }
+    if (!password) {
+      passwordError.textContent = "Password is required.";
+      hasError = true;
+    }
 
-      if (hasError) return;
+    if (hasError) return;
 
-      try {
-        const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }) // ✅ removed role from here
-        });
+    try {
+      const response = await fetch("https://soanchirhi-backend.onrender.com/login", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }) // ✅ No role here
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (data.success && (data.role === 'teacher' || data.role === 'admin')) {
-          message.textContent = "Login successful! Redirecting...";
-          message.className = 'message success';
+      // ✅ Ensure only teacher/admin roles allowed
+      if (data.success && (data.role === 'teacher' || data.role === 'admin')) {
+        message.textContent = "Login successful! Redirecting...";
+        message.className = 'message success';
 
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("userRole", data.role);
+        // ✅ Store token and enforce role
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userRole", "teacher"); // Force set to teacher
 
-          window.location.href = "teacher_resources.html";
-        } else {
-          message.textContent = data.message || "Access denied. Not a teacher.";
-          message.className = 'message error';
-        }
-      } catch (error) {
-        console.error('Fetch error:', error);
-        message.textContent = "Server connection error.";
+        window.location.href = "teacher_resources.html";
+      } else {
+        message.textContent = data.message || "Access denied. Only teachers can access this page.";
         message.className = 'message error';
       }
-    });
-  </script>
+    } catch (error) {
+      console.error('Fetch error:', error);
+      message.textContent = "Server connection error.";
+      message.className = 'message error';
+    }
+  });
+</script>
+
 </body>
 </html>
