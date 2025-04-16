@@ -62,14 +62,15 @@
       .then(response => response.json())
       .then(data => {
         const container = document.getElementById("resourceLinks");
-        if (Array.isArray(data.links)) {
-          data.links.forEach((url, index) => {
-            const link = document.createElement("a");
-            link.href = url;
-            link.textContent = `Open Resource ${index + 1}`;
-            link.target = "_blank";
-            container.appendChild(link);
-          });
+     if (Array.isArray(data)) {
+  data.forEach((item, index) => {
+    const link = document.createElement("a");
+    link.href = item.url;
+    link.textContent = item.title || `Resource ${index + 1}`;
+    link.target = "_blank";
+    container.appendChild(link);
+  });
+
         } else {
           document.getElementById("errorMessage").textContent = "No teacher resources found.";
         }
