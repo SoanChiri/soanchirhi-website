@@ -2,7 +2,7 @@ const token = localStorage.getItem("token");
 
 // Utility to convert Google Drive view links to direct file links
 function convertDriveLink(link) {
-  const match = link.match(/\/d\/([^/]+)\//);
+  const match = link.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
   return match ? `https://drive.google.com/uc?id=${match[1]}` : link;
 }
 
