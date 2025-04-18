@@ -107,8 +107,7 @@ document.getElementById("galleryForm").addEventListener("submit", async (e) => {
     const res = await fetch(`https://soanchirhi-backend.onrender.com/update-gallery-photo/${i + 1}`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ url }),
-
+      body: JSON.stringify({ galleryUrl: url })
     });
 
     const data = await res.json();
