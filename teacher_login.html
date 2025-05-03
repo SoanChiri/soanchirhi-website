@@ -116,7 +116,16 @@
       </div>
     </form>
   </div>
-<script>
+
+ <script>
+  function parseJwt(token) {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      return null;
+    }
+  }
+
   document.getElementById('teacherLoginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -158,17 +167,19 @@
       const data = await response.json();
 
       if (data.success) {
+        const decoded = parseJwt(data.token);
+
+        if (!decoded || decoded.role !== "teacher") {
+          message.textContent = "Only teachers can log in from this page.";
+          message.className = 'message error';
+          localStorage.removeItem("token");
+          localStorage.removeItem("userRole");
+          return;
+        }
+
         localStorage.setItem("token", data.token);
         localStorage.setItem("userRole", data.role);
-
-        if (data.role === 'teacher') {
-          window.location.href = "teacher_resources.html";  // Teacher Resources
-        } else if (data.role === 'admin') {
-          window.location.href = "admin_panel.html";         // Admin Panel
-        } else {
-          message.textContent = "Access denied. Invalid role.";
-          message.className = 'message error';
-        }
+        window.location.href = "teacher_resources.html";
 
       } else {
         message.textContent = data.message || "Login failed.";
@@ -181,6 +192,7 @@
     }
   });
 </script>
+
 
 </body>
 </html>
