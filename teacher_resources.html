@@ -45,41 +45,50 @@
   <div id="resourceLinks"></div>
   <p id="errorMessage"></p>
 
-  <script>
-    const token = localStorage.getItem("token");
-    const role = localStorage.getItem("userRole");
-
-    if (!token || (role !== "teacher" && role !== "admin")) {
-      document.getElementById("errorMessage").textContent = "Access denied. Please login as a teacher.";
-      window.location.href = "teacher_login.html";
-    } else {
-      fetch("https://soanchirhi-backend.onrender.com/resources/teacher", {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById("resourceLinks");
-     if (Array.isArray(data)) {
-  data.forEach((item, index) => {
-    const link = document.createElement("a");
-    link.href = item.url;
-    link.textContent = item.title || `Resource ${index + 1}`;
-    link.target = "_blank";
-    container.appendChild(link);
-  });
-
-        } else {
-          document.getElementById("errorMessage").textContent = "No teacher resources found.";
-        }
-      })
-      .catch(error => {
-        console.error("Fetch error:", error);
-        document.getElementById("errorMessage").textContent = "Error fetching resources.";
-      });
+<script>
+  function parseJwt(token) {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      return null;
     }
-  </script>
+  }
+
+  const token = localStorage.getItem("token");
+  const decoded = parseJwt(token);
+
+  if (!token || !decoded || (decoded.role !== "teacher" && decoded.role !== "admin")) {
+    document.getElementById("errorMessage").textContent = "Access denied. Please login as a teacher.";
+    window.location.href = "teacher_login.html";
+  } else {
+    fetch("https://soanchirhi-backend.onrender.com/resources/teacher", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      const container = document.getElementById("resourceLinks");
+
+      if (Array.isArray(data)) {
+        data.forEach((item, index) => {
+          const link = document.createElement("a");
+          link.href = item.url;
+          link.textContent = item.title || `Resource ${index + 1}`;
+          link.target = "_blank";
+          container.appendChild(link);
+        });
+      } else {
+        document.getElementById("errorMessage").textContent = "No teacher resources found.";
+      }
+    })
+    .catch(error => {
+      console.error("Fetch error:", error);
+      document.getElementById("errorMessage").textContent = "Error fetching resources.";
+    });
+  }
+</script>
+
 </body>
 </html>
