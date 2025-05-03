@@ -1,10 +1,4 @@
 const token = localStorage.getItem("token");
-const role = localStorage.getItem("userRole");
-
-if (!token || role !== "admin") {
-  alert("Access denied. You are not authorized to view this page.");
-  window.location.href = "teacher_login.html";  // or a common login/homepage
-}
 
 function parseJwt(token) {
   try {
@@ -15,9 +9,11 @@ function parseJwt(token) {
 }
 
 const decoded = parseJwt(token);
-if (!decoded || decoded.role !== "admin") {
-  alert("Access denied. Invalid role.");
-  window.location.href = "teacher_login.html";
+
+// ✅ Only rely on the decoded token
+if (!token || !decoded || decoded.role !== "admin") {
+  alert("Access denied. You are not authorized to view this page.");
+  window.location.href = "admin_login.html";
 }
 
 
