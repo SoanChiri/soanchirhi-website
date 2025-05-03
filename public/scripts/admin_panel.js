@@ -1,4 +1,11 @@
 const token = localStorage.getItem("token");
+const role = localStorage.getItem("userRole");
+
+if (!token || role !== "admin") {
+  alert("Access denied. You are not authorized to view this page.");
+  window.location.href = "teacher_login.html";  // or a common login/homepage
+}
+
 
 // Utility to convert Google Drive view links to direct file links
 function convertDriveLink(link) {
