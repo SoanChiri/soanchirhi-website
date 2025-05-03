@@ -6,6 +6,21 @@ if (!token || role !== "admin") {
   window.location.href = "teacher_login.html";  // or a common login/homepage
 }
 
+function parseJwt(token) {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (e) {
+    return null;
+  }
+}
+
+const decoded = parseJwt(token);
+if (!decoded || decoded.role !== "admin") {
+  alert("Access denied. Invalid role.");
+  window.location.href = "teacher_login.html";
+}
+
+
 
 // Utility to convert Google Drive view links to direct file links
 function convertDriveLink(link) {
