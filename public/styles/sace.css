@@ -1,11 +1,14 @@
+/* Soan Chirhi – SACE Page Theme (matches main site) */
+
 :root{
   --blue:#002c5f;
+  --blue2:#003f7d;
   --gold:#ffd700;
-  --deep:#001c3f;
-  --text:#222;
-  --muted:#555;
+  --text:#1f2937;
+  --muted:#6b7280;
   --card:#ffffff;
-  --shadow: 0 4px 20px rgba(0,0,0,0.15);
+  --bg:#f5f7fb;
+  --shadow: 0 10px 28px rgba(0,0,0,.14);
 }
 
 *{ box-sizing:border-box; }
@@ -13,94 +16,120 @@
 body{
   margin:0;
   font-family: Arial, Helvetica, sans-serif;
-  background: var(--blue);
-  color: var(--text);
+  color:var(--text);
+  background: linear-gradient(180deg, var(--blue) 0%, var(--bg) 280px);
 }
 
-/* Header (make it look like main site) */
+/* Header */
 .simple-page-header{
   background: var(--blue);
   color:#fff;
-  padding: 26px 16px;
-  border-bottom: 3px solid var(--gold);
+  padding: 36px 18px 22px;
   text-align:center;
+  border-bottom: 4px solid var(--gold);
 }
 
 .simple-page-header h1{
   margin:0;
   font-size: 2.1rem;
-  font-weight: 800;
+  letter-spacing: .3px;
 }
 
 .simple-page-subtitle{
-  margin: 6px 0 0;
-  color:#e8eef7;
-  font-size: 1rem;
+  margin: 10px 0 0;
+  font-size: 1.05rem;
+  opacity: .95;
 }
 
-/* Back link */
 .back-home-link{
   display:inline-block;
-  margin-top: 12px;
-  color: var(--gold);
+  margin-top: 16px;
+  padding: 10px 16px;
+  border-radius: 999px;
   text-decoration:none;
-  font-weight: 800;
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 2px solid rgba(255,215,0,0.55);
+  font-weight:700;
+  background: var(--gold);
+  color: var(--blue);
+  transition: transform .15s ease, background-color .15s ease;
 }
 
 .back-home-link:hover{
-  background: var(--gold);
-  color: var(--blue);
+  transform: translateY(-1px);
+  background: #ffe46b;
 }
 
-/* Main content container */
+/* Page layout */
 .simple-page-content{
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 26px 16px 44px;
+  max-width: 1000px;
+  margin: 28px auto 60px;
+  padding: 0 16px;
 }
 
 /* Cards */
 .info-card{
   background: var(--card);
   border-radius: 16px;
-  padding: 28px;
   box-shadow: var(--shadow);
+  padding: 26px 24px;
   margin: 18px 0;
-  border-top: 4px solid var(--gold);
+  border: 1px solid rgba(0,0,0,.06);
+  position: relative;
+  overflow:hidden;
+}
+
+.info-card::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width: 6px;
+  height: 100%;
+  background: var(--gold);
 }
 
 .info-card h2{
-  margin-top:0;
+  margin:0 0 12px;
+  font-size: 1.55rem;
   color: var(--blue);
-  border-bottom: 3px solid var(--gold);
-  padding-bottom: 8px;
 }
 
 .info-card h3{
   margin-top: 18px;
-  margin-bottom: 8px;
-  color: #003f7d;
+  margin-bottom: 6px;
+  font-size: 1.1rem;
+  color: var(--blue2);
 }
 
-/* Text */
-.info-card p,
-.info-card li{
-  font-size: 1.06rem;
-  line-height: 1.8;
+.info-card p{
+  margin: 10px 0;
+  line-height: 1.75;
+  color: var(--text);
 }
 
 .info-card ul{
-  padding-left: 20px;
   margin: 10px 0 0;
+  padding-left: 20px;
+}
+
+.info-card li{
+  margin: 8px 0;
+  line-height: 1.65;
+}
+
+/* Notes */
+.small-note{
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(0,63,125,.06);
+  border: 1px dashed rgba(0,63,125,.25);
+  color: var(--muted);
 }
 
 /* Apply button */
 .sace-apply-wrap{
   text-align:center;
-  margin-top: 18px;
+  margin: 14px 0 6px;
 }
 
 .sace-apply-btn{
@@ -108,27 +137,19 @@ body{
   background: var(--gold);
   color: var(--blue);
   text-decoration:none;
-  font-weight: 900;
+  font-weight: 800;
   padding: 12px 22px;
-  border-radius: 999px;
-  transition: 0.2s ease;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  border-radius: 10px;
+  transition: transform .15s ease, background-color .15s ease;
 }
 
 .sace-apply-btn:hover{
-  background: var(--blue);
-  color:#fff;
-}
-
-/* Notes */
-.small-note{
-  margin-top: 10px;
-  color: var(--muted);
-  font-style: italic;
+  transform: translateY(-1px);
+  background: #ffe46b;
 }
 
 /* Mobile */
-@media (max-width: 768px){
+@media (max-width:768px){
   .simple-page-header h1{ font-size: 1.7rem; }
-  .info-card{ padding: 18px; }
+  .info-card{ padding: 20px 18px; }
 }
