@@ -153,3 +153,73 @@ body{
   .simple-page-header h1{ font-size: 1.7rem; }
   .info-card{ padding: 20px 18px; }
 }
+/* Smooth scrolling for SACE nav */
+html {
+  scroll-behavior: smooth;
+}
+
+/* SACE Navigation Bar */
+.sace-nav {
+  background: #002c5f;                 /* same as main site blue */
+  border-top: 3px solid #ffd700;       /* same yellow */
+  border-bottom: 3px solid #ffd700;
+  padding: 10px 0;
+  position: sticky;                    /* stays visible when scrolling */
+  top: 0;
+  z-index: 999;
+}
+
+.sace-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.sace-nav ul li a {
+  display: inline-block;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 14px;
+  border-radius: 999px;               /* pill shape */
+  transition: 0.25s ease-in-out;
+}
+
+/* Hover */
+.sace-nav ul li a:hover {
+  background: #ffd700;
+  color: #002c5f;
+}
+
+/* Optional: make the Enrolment link look like a button if you want later */
+/*
+.sace-nav ul li a[href="#enrolment"] {
+  background: #ffd700;
+  color: #002c5f;
+}
+.sace-nav ul li a[href="#enrolment"]:hover {
+  background: #ffffff;
+  color: #002c5f;
+}
+*/
+
+/* Mobile layout */
+@media (max-width: 768px) {
+  .sace-nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sace-nav ul li a {
+    width: 92%;
+    text-align: center;
+    padding: 12px 14px;
+  }
+}
