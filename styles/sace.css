@@ -1,90 +1,155 @@
-/* =========================
-   SACE Page (sace.html) CSS
-   File: /public/styles/sace.css
-   ========================= */
+/* Soan Chirhi – SACE Page Theme (matches main site) */
 
-/* Basic page reset */
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  line-height: 1.6;
+:root{
+  --blue:#002c5f;
+  --blue2:#003f7d;
+  --gold:#ffd700;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --card:#ffffff;
+  --bg:#f5f7fb;
+  --shadow: 0 10px 28px rgba(0,0,0,.14);
 }
 
-/* Page header */
-.simple-page-header {
-  padding: 28px 16px 18px;
-  text-align: center;
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  color:var(--text);
+  background: linear-gradient(180deg, var(--blue) 0%, var(--bg) 280px);
 }
 
-.simple-page-header h1 {
-  margin: 0;
-  font-size: 2rem;
+/* Header */
+.simple-page-header{
+  background: var(--blue);
+  color:#fff;
+  padding: 36px 18px 22px;
+  text-align:center;
+  border-bottom: 4px solid var(--gold);
 }
 
-.simple-page-subtitle {
-  margin: 6px 0 0;
-  opacity: 0.85;
+.simple-page-header h1{
+  margin:0;
+  font-size: 2.1rem;
+  letter-spacing: .3px;
 }
 
-.back-home-link {
-  display: inline-block;
-  margin-top: 12px;
-  text-decoration: none;
-  font-weight: 700;
-}
-
-/* Main layout */
-.simple-page-content {
-  max-width: 950px;
-  margin: 0 auto;
-  padding: 10px 16px 46px;
-}
-
-/* Content cards */
-.info-card {
-  padding: 18px;
-  margin: 16px 0;
-  border-radius: 14px;
-  border: 1px solid rgba(0,0,0,0.12);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-}
-
-.info-card h2 {
-  margin-top: 0;
-}
-
-/* Lists */
-.info-card ul {
+.simple-page-subtitle{
   margin: 10px 0 0;
-  padding-left: 22px;
+  font-size: 1.05rem;
+  opacity: .95;
 }
 
-.small-note {
-  opacity: 0.85;
-  font-size: 0.95em;
-  margin-top: 10px;
+.back-home-link{
+  display:inline-block;
+  margin-top: 16px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  text-decoration:none;
+  font-weight:700;
+  background: var(--gold);
+  color: var(--blue);
+  transition: transform .15s ease, background-color .15s ease;
 }
 
-/* Apply button (matches your admission style without depending on your main CSS) */
-.sace-apply-wrap {
-  margin-top: 12px;
-}
-
-.sace-apply-btn {
-  display: inline-block;
-  padding: 12px 16px;
-  border-radius: 10px;
-  font-weight: 800;
-  text-decoration: none;
-  border: 2px solid rgba(0,0,0,0.15);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
-}
-
-.sace-apply-btn:hover {
+.back-home-link:hover{
   transform: translateY(-1px);
+  background: #ffe46b;
 }
-/* FAQ styling */
-.info-card h3 {
+
+/* Page layout */
+.simple-page-content{
+  max-width: 1000px;
+  margin: 28px auto 60px;
+  padding: 0 16px;
+}
+
+/* Cards */
+.info-card{
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 26px 24px;
+  margin: 18px 0;
+  border: 1px solid rgba(0,0,0,.06);
+  position: relative;
+  overflow:hidden;
+}
+
+.info-card::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width: 6px;
+  height: 100%;
+  background: var(--gold);
+}
+
+.info-card h2{
+  margin:0 0 12px;
+  font-size: 1.55rem;
+  color: var(--blue);
+}
+
+.info-card h3{
   margin-top: 18px;
   margin-bottom: 6px;
+  font-size: 1.1rem;
+  color: var(--blue2);
+}
+
+.info-card p{
+  margin: 10px 0;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.info-card ul{
+  margin: 10px 0 0;
+  padding-left: 20px;
+}
+
+.info-card li{
+  margin: 8px 0;
+  line-height: 1.65;
+}
+
+/* Notes */
+.small-note{
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(0,63,125,.06);
+  border: 1px dashed rgba(0,63,125,.25);
+  color: var(--muted);
+}
+
+/* Apply button */
+.sace-apply-wrap{
+  text-align:center;
+  margin: 14px 0 6px;
+}
+
+.sace-apply-btn{
+  display:inline-block;
+  background: var(--gold);
+  color: var(--blue);
+  text-decoration:none;
+  font-weight: 800;
+  padding: 12px 22px;
+  border-radius: 10px;
+  transition: transform .15s ease, background-color .15s ease;
+}
+
+.sace-apply-btn:hover{
+  transform: translateY(-1px);
+  background: #ffe46b;
+}
+
+/* Mobile */
+@media (max-width:768px){
+  .simple-page-header h1{ font-size: 1.7rem; }
+  .info-card{ padding: 20px 18px; }
 }
