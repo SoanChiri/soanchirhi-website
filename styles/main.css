@@ -686,4 +686,49 @@
   background-color: #e0a800;
   color: #000;
 }
+/* ANNOUNCEMENTS SECTION */
+#announcements {
+  background-color: #002c5f;
+  padding: 70px 20px;
+}
+
+.announcements-container {
+  background-color: #ffffff;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.announcement-item {
+  border-left: 6px solid #ffd700;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.announcement-item p {
+  margin: 0;
+  font-size: 1.05em;
+  line-height: 1.6;
+  color: #333;
+}
+
+.announcement-date {
+  display: inline-block;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #002c5f;
+  margin-bottom: 6px;
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .announcements-container {
+    padding: 25px;
+  }
+}
+
 
